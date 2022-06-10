@@ -1,0 +1,1 @@
+import{_ as e,c as a,o as t,a as o}from"./app.8a0f1aa2.js";const u='{"title":"Open API","description":"","frontmatter":{},"headers":[],"relativePath":"en/guide/openapi.md","lastUpdated":1654874118000}',n={name:"en/guide/openapi.md"},i=o("",4),p=[i];function s(c,r,d,_,l,h){return t(),a("div",null,p)}var f=e(n,[["render",s]]);export{u as __pageData,f as default};
