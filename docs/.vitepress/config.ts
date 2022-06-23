@@ -1,10 +1,10 @@
-import {defineConfig} from "vitepress";
+import {DefaultTheme, defineConfig} from "vitepress";
 
 export default defineConfig({
     lang: "en-US",
 
-    title: "NTAK.REST by TMRW Applications",
-    description: "REST API documentation for NTAK.REST",
+    title: "NTAK.GURU by TMRW Applications",
+    description: "REST API documentation for NTAK.GURU",
 
     lastUpdated: true,
 
@@ -13,12 +13,12 @@ export default defineConfig({
         nav: nav(),
 
         sidebar: {
-            "/en/guide/": sidebarGuideEn(),
-            "/en/config/": sidebarOpenapiEn(),
+            "/guide/": sidebarGuide(),
+            "/config/": sidebarOpenapi(),
         },
 
         editLink: {
-            repo: "TMRW-Life/docs.ntak.rest",
+            repo: "TMRW-Life/docs.ntak.guru",
             text: "Edit this page on GitHub"
         },
 
@@ -32,32 +32,36 @@ export default defineConfig({
     }
 });
 
-function nav() {
+function nav(): DefaultTheme.NavItem[] {
     return [
         {
             text: "Guide",
-            link: "/en/guide/what-is-ntak.rest",
-            activeMatch: "/en/guide/",
+            link: "/guide/getting-started",
+            activeMatch: "/guide/",
         },
         {
             text: "OpenAPI",
-            link: "/en/openapi/download",
-            activeMatch: "/en/openapi/",
+            link: "/openapi/download",
+            activeMatch: "/openapi/",
         },
     ];
 }
 
-function sidebarGuideEn() {
+function sidebarGuide(): DefaultTheme.SidebarGroup[] {
     return [
         {
             text: "Introduction",
             collapsible: true,
             items: [
                 {
-                    text: "What is NTAK.REST?",
-                    link: "/en/guide/what-is-ntak.rest",
+                    text: "What is NTAK.GURU?",
+                    link: "/guide/what-is-ntak.guru",
                 },
-                {text: "OpenAPI", link: "/en/guide/openapi"},
+                {
+                    text: "Getting started",
+                    link: "/guide/getting-started"
+                },
+                {text: "OpenAPI", link: "/guide/openapi"},
             ],
         },
         {
@@ -66,15 +70,15 @@ function sidebarGuideEn() {
             items: [
                 {
                     text: "Authorization",
-                    link: "/en/guide/headers/authorization",
+                    link: "/guide/headers/authorization",
                 },
                 {
                     text: "Accept",
-                    link: "/en/guide/headers/accept",
+                    link: "/guide/headers/accept",
                 },
                 {
                     text: "Locale",
-                    link: "/en/guide/headers/locale",
+                    link: "/guide/headers/locale",
                 },
             ],
         },
@@ -84,27 +88,27 @@ function sidebarGuideEn() {
             items: [
                 {
                     text: "The accommodation object",
-                    link: "/en/guide/accommodation/accommodation-object",
+                    link: "/guide/accommodation/accommodation-object",
                 },
                 {
                     text: "Register the accommodation",
-                    link: "/en/guide/accommodation/register",
+                    link: "/guide/accommodation/register",
                 },
                 {
                     text: "Retrieve the accommodation",
-                    link: "/en/guide/accommodation/retrieve",
+                    link: "/guide/accommodation/retrieve",
                 },
                 {
                     text: "Update the accommodation",
-                    link: "/en/guide/accommodation/update",
+                    link: "/guide/accommodation/update",
                 },
                 {
                     text: "Activate the accommodation",
-                    link: "/en/guide/accommodation/activate",
+                    link: "/guide/accommodation/activate",
                 },
                 {
                     text: "Deactivate the accommodation",
-                    link: "/en/guide/accommodation/deactivate",
+                    link: "/guide/accommodation/deactivate",
                 },
             ],
         },
@@ -113,27 +117,57 @@ function sidebarGuideEn() {
             collapsible: true,
             items: [
                 {
+                    text: "Prologue",
+                    link: "/guide/certification/prologue"
+                },
+                {
                     text: "Generate certifications",
-                    link: "/en/guide/certification/generate"
+                    link: "/guide/certification/generate"
                 },
                 {
                     text: "Download certification requests",
-                    link: "/en/guide/certification/download"
+                    link: "/guide/certification/download"
                 },
                 {
                     text: "Upload certifications",
-                    link: "/en/guide/certification/upload"
+                    link: "/guide/certification/upload"
+                },
+                {
+                    text: "Delete certifications",
+                    link: "/guide/certification/delete"
+                }
+            ]
+        },
+        {
+            text: "Reports",
+            collapsible: true,
+            items: [
+                {
+                    text: "Reservation",
+                    link: "/guide/reports/reservation"
+                },
+                {
+                    text: "Room change",
+                    link: "/guide/reports/roomchange"
+                },
+                {
+                    text: "Checkin",
+                    link: "/guide/reports/checkin"
+                },
+                {
+                    text: "Checkout",
+                    link: "/guide/reports/checkout"
                 }
             ]
         }
     ];
 }
 
-function sidebarOpenapiEn() {
+function sidebarOpenapi(): DefaultTheme.SidebarGroup[] {
     return [
         {
             text: "Config",
-            items: [{text: "Introduction", link: "/en/openapi"}],
+            items: [{text: "Introduction", link: "/openapi"}],
         },
     ];
 }

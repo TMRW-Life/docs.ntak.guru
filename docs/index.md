@@ -2,16 +2,15 @@
 layout: home
 
 title: Documentation
-titleTemplate: NTAK.REST
 
 hero:
-    name: NTAK.REST
+    name: NTAK.GURU
     text: Simple RESTful API for NTAK reporting
     tagline: The easy way for your PMS to report to NTAK in Hungary.
     actions:
         - theme: brand
           text: Get Started
-          link: /en/guide/getting-started
+          link: /guide/getting-started
 
 features:
     - title: RESTful API
