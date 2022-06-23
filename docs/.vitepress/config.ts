@@ -19,7 +19,8 @@ export default defineConfig({
 
         editLink: {
             repo: "TMRW-Life/docs.ntak.guru",
-            text: "Edit this page on GitHub"
+            text: "Edit this page on GitHub",
+            dir: "docs"
         },
 
         footer: {
