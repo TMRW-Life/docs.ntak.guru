@@ -1,0 +1,14 @@
+{
+  "index": "List",
+  "view": "",
+  "retry": "",
+  "-- Events": {
+    "type": "separator",
+    "title": "Events"
+  },
+  "reservation": "",
+  "check_in": "",
+  "check_out": "",
+  "room_change": "",
+  "daily_close": ""
+}

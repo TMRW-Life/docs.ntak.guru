@@ -1,7 +1,20 @@
-export default {
-  logo: <span>My Nextra Documentation</span>,
+import {DocsThemeConfig} from "nextra-theme-docs";
+
+const config: DocsThemeConfig = {
+  logo: <span>NTAK.guru Docs</span>,
   project: {
-    link: 'https://github.com/shuding/nextra'
-  }
-  // ... other theme options
+    link: 'https://github.com/TMRW-Life/docs.ntak.guru'
+  },
+  sidebar: {
+    titleComponent({ title, type }) {
+      if (type === 'separator') {
+        return <span className="cursor-default">{title}</span>
+      }
+      return <>{title}</>
+    },
+    defaultMenuCollapseLevel: 1,
+    toggleButton: true
+  },
 }
+
+export default config

@@ -1,0 +1,11 @@
+{
+  "index": "List",
+  "view": "",
+  "retry": "",
+  "-- Events": {
+    "type": "separator",
+    "title": "Events"
+  },
+  "check_in": "",
+  "check_out": ""
+}

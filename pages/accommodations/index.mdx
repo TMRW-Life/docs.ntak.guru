@@ -1,0 +1,31 @@
+import {Tabs} from 'nextra/components'
+
+# List accommodations
+
+This endpoint allows you to retrieve a list of all your accommodations.
+
+<Tabs items={['cURL', 'PHP']}>
+  <Tabs.Tab>
+    [//]: # (@formatter:off)
+    ```bash copy
+    curl -G https://api.sandbox.ntak.guru/v1/accommodations \
+      -H "Accept: application/json" \
+      -H "Authorization: Bearer {token}"
+    ```
+    [//]: # (@formatter:on)
+  </Tabs.Tab>
+  <Tabs.Tab>
+    [//]: # (@formatter:off)
+    ```php copy
+    use TmrwLife\NtakGuru\Services\Accommodation;
+
+    $gateway = Accommodation::setup([
+      'accessToken' => 'your-access-token',
+      'isProduction' => false, // default: false
+    ]);
+
+    $response = $gateway->list();
+    ```
+    [//]: # (@formatter:on)
+  </Tabs.Tab>
+</Tabs>

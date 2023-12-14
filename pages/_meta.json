@@ -1,0 +1,21 @@
+{
+  "-- Guides": {
+    "type": "separator",
+    "title": "Guides"
+  },
+  "index": "Introduction",
+  "get-started": "",
+  "sdks": "SDKs",
+  "servers": "",
+  "authentication": "",
+  "pagination": "",
+  "callback": "",
+  "terminology": "Terminology",
+  "-- Endpoints": {
+    "type": "separator",
+    "title": "Endpoints"
+  },
+  "accommodations": "Accommodations",
+  "certificates": "Certificates",
+  "reports": "Reports"
+}
