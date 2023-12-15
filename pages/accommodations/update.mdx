@@ -1,0 +1,163 @@
+import {Tabs, Callout} from 'nextra/components'
+import Protocol from "../../components/protocol";
+
+# Update an accommodation
+
+This endpoint allows you to perform an update on an accommodation by providing the accommodation `id` or `slug`.
+
+## Request
+
+<Protocol method="PUT" path="/v1/accommodations/{accommodation}" />
+<Protocol method="PATCH" path="/v1/accommodations/{accommodation}" />
+
+<Tabs items={['cURL', 'PHP']}>
+  <Tabs.Tab>
+    [//]: # (@formatter:off)
+    ```bash copy
+    curl -X PUT https://api.sandbox.ntak.guru/v1/accommodations/rqdsw \
+      -H "Authorization: Bearer {token}" \
+      -H "Accept: application/json" \
+      -H "Content-Type: application/json" \
+      -d '{"providerName": "New Provider Ltd.", "providerTaxNumber": "12345678-1-12", "dailyCloseUrl": "https://example.com/daily-close", "callbackUrl": "https://example.com/callback"}'
+
+    ```
+    [//]: # (@formatter:on)
+  </Tabs.Tab>
+  <Tabs.Tab>
+    [//]: # (@formatter:off)
+    ```php copy
+    use TmrwLife\NtakGuru\Entities\Accommodation as AccommodationEntity;
+    use TmrwLife\NtakGuru\Services\Accommodation;
+
+    $gateway = Accommodation::setup([
+      'accessToken' => {token},
+      'isProduction' => false, // default: false
+    ]);
+
+    $accommodation = (new AccommodationEntity())
+      ->setProviderName('New Provider Ltd.')
+      ->setProviderTaxNumber('12345678-1-12')
+      ->setCallbackUrl('https://example.com/callback')
+      ->setDailyCloseUrl('https://example.com/daily-close');
+
+    $response = $gateway->update('rqdsw', $accommodation);
+    ```
+    [//]: # (@formatter:on)
+  </Tabs.Tab>
+</Tabs>
+
+### URL Parameters
+
+| Name            | Description                      |
+|-----------------|----------------------------------|
+| `accommodation` | The accommodation `id` or `slug` |
+
+### Request Body
+
+| Name                |        Type        | Description                                                                    | Required |
+|---------------------|:------------------:|--------------------------------------------------------------------------------|:--------:|
+| `providerName`      |      `string`      | The name of the accommodation provider.                                        |   Yes    |
+| `providerTaxNumber` |      `string`      | The tax number of the accommodation provider.                                  |   Yes    |
+| `dailyCloseUrl`     |      `string`      | PMS endpoint where NTAK.guru will fetches the data for the daily close report. |   Yes    |
+| `callbackUrl`       | `string` or `null` | PMS endpoint where NTAK.guru sends the webhook.                                |    No    |
+
+#### Example
+
+```json
+{
+  "providerName": "New Provider Ltd.",
+  "providerTaxNumber": "12345678-1-12",
+  "dailyCloseUrl": "https://hotelcalifornia.com/api/daily-close",
+  "callbackUrl": "https://hotelcalifornia.com/api/ntak-guru"
+}
+```
+
+## Response
+
+<Tabs items={[200, 401, 403, 404, 422]}>
+  <Tabs.Tab>
+    <Callout type="info" emoji="ℹ️">
+      Read more about the accommodation object in the [Terminology](/terminology/accommodation).
+    </Callout>
+    [//]: # (@formatter:off)
+    ```json copy
+    {
+      "payload": {
+        "id": "99845d23-7ffb-4267-85ef-c8d4ac70e46a",
+        "slug": "rqdsw",
+        "name": "Senger-Cummerata",
+        "providerName": "New Provider Ltd.",
+        "providerTaxNumber": "12345678-1-12",
+        "postalCode": null,
+        "locality": null,
+        "reportingId": null,
+        "active": false,
+        "hasLiveCertificate": false,
+        "hasPendingCertificate": false,
+        "callbackUrl": "https://example.com/callback",
+        "dailyCloseUrl": "https://example.com/daily-close",
+        "expireAt": null,
+        "roles": [
+          "Owner",
+        ],
+        "createdAt": "2023-06-28T07:36:13+00:00",
+        "updatedAt": "2023-06-28T07:36:13+00:00",
+      },
+      "message": null
+    }
+
+    ```
+    [//]: # (@formatter:on)
+  </Tabs.Tab>
+  <Tabs.Tab>
+    [//]: # (@formatter:off)
+    ```json copy
+    {
+      "message": "Unauthenticated."
+    }
+    ```
+    [//]: # (@formatter:on)
+  </Tabs.Tab>
+  <Tabs.Tab>
+    [//]: # (@formatter:off)
+    ```json copy
+    {
+      "message": "Unauthorized."
+    }
+    ```
+    [//]: # (@formatter:on)
+  </Tabs.Tab>
+  <Tabs.Tab>
+    [//]: # (@formatter:off)
+    ```json copy
+    {
+      "message": "Page not found."
+    }
+    ```
+    [//]: # (@formatter:on)
+  </Tabs.Tab>
+  <Tabs.Tab>
+    [//]: # (@formatter:off)
+    ```json copy
+    {
+      "message": "The provider name field is required. (and 3 more errors)",
+      "errors": {
+        "providerName": [
+          "The provider name field is required."
+        ],
+        "providerTaxNumber": [
+          "The provider tax number field is required."
+        ],
+        "callbackUrl": [
+          "The daily close url field is required.",
+          "The daily close url must be a valid URL."
+        ],
+        "callbackUrl": [
+          "The callback url must be a valid URL."
+        ]
+      }
+    }
+    ```
+    [//]: # (@formatter:on)
+  </Tabs.Tab>
+</Tabs>
