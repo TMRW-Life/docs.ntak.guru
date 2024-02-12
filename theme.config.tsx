@@ -15,6 +15,11 @@ const config: DocsThemeConfig = {
     defaultMenuCollapseLevel: 1,
     toggleButton: true
   },
+  useNextSeoProps() {
+    return {
+      titleTemplate: '%s – NTAK.guru Docs'
+    }
+  }
 }
 
 export default config

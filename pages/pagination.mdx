@@ -1,0 +1,89 @@
+# Pagination
+
+In this guide, we will look at how to work with paginated responses when querying the NTAK.guru API. By default, all responses limit results to 25. However, you can go as high as 100 by adding a `perPage` parameter to your requests. If you are using one of the official NTAK.guru API client libraries, you don't need to worry about pagination, as it's all being taken care of behind the scenes.
+
+When an API response returns a list of objects, no matter the amount, pagination is supported. In paginated responses, objects are nested in a `payload` attribute and have a `meta` attribute that contains information about the pagination. You can use the `page` and `perPage` query parameters to browse pages.
+
+We are using Laravel default [pagination](https://laravel.com/docs/eloquent-resources#pagination).
+
+## Example using cursors
+
+In this example, we request the second `page` of reports with a `perPage` of 10. As a result, we get a list of 10 reports and a `meta` attribute that contains information about the pagination.
+
+### `page`
+
+Set the current page number.
+
+| Type      | Format |
+|:----------|:-------|
+| `integer` |        |
+
+### `perPage`
+
+Limit the number of items returned.
+
+| Type      | Format |
+|:----------|:-------|
+| `integer` |        |
+
+[//]: # (@formatter:off)
+```bash filename="Manual pagination using cURL"
+curl -G https://api.ntak.guru/v1/accommodations \
+  -H "Accept: application/json" \
+  -H "Authorization: Bearer {token}" \
+  -d page=2 \
+  -d perPage=10
+```
+[//]: # (@formatter:on)
+
+[//]: # (@formatter:off)
+```json filename="Paginated response"
+{
+  "payload": [
+    {
+      "id": "9990c9e1-2eac-487c-95c3-d14860a160b3"
+    },
+    {
+      "id": "9990c9e1-2ee0-4765-bc46-d90c242eb888"
+    },
+    {
+      "id": "9990c9e1-2f06-417d-97a5-d58eda1ab5d5"
+    }
+  ],
+  "links": {
+    "first": "https://api.ntak.guru/v1/accommodations?page=1",
+    "last": "https://api.ntak.guru/v1/accommodations?page=3",
+    "prev": null,
+    "next": null
+  },
+  "meta": {
+    "current_page": 2,
+    "from": 11,
+    "last_page": 3,
+    "links": [
+      {
+        "url": null,
+        "label": "&laquo; Previous",
+        "active": false
+      },
+      {
+        "url": "https://api.ntak.guru/v1/accommodations?page=1",
+        "label": "1",
+        "active": true
+      },
+      {
+        "url": null,
+        "label": "Next &raquo;",
+        "active": false
+      }
+    ],
+    "path": "https://api.ntak.guru/v1/accommodations",
+    "per_page": 10,
+    "to": 20,
+    "total": 30
+  },
+  "message": null
+}
+
+```
+[//]: # (@formatter:on)
