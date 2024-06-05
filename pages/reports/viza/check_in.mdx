@@ -113,275 +113,275 @@ The guests who check in to the accommodation. Minimum 1 guest.
 |:-----------|:--------:|
 | `object[]` |   Yes    |
 
-#### `guests.*.id` [#guests-id]
+* #### `id` [#guests-id]
 
-The unique identifier of the guest. \
-This ID must be used in the [check out](/reports/viza/check_out) report.
+    The unique identifier of the guest. \
+    This ID must be used in the [check out](/reports/viza/check_out) report.
 
-| Type   | Required |
-|:-------|:--------:|
-| `uuid` |   Yes    |
+    | Type   | Required |
+    |:-------|:--------:|
+    | `uuid` |   Yes    |
 
-#### `guests.*.arrival` [#guests-arrival]
+* #### `arrival` [#guests-arrival]
 
-The date and time of the arrival of the guest.
+    The date and time of the arrival of the guest.
 
-| Type     | Format            | Required |
-|:---------|:------------------|:--------:|
-| `string` | `Y-m-d H:i:s` UTC |   Yes    |
+    | Type     | Format            | Required |
+    |:---------|:------------------|:--------:|
+    | `string` | `Y-m-d H:i:s` UTC |   Yes    |
 
-#### `guests.*.departure` [#guests-departure]
+* #### `departure` [#guests-departure]
 
-The planned departure time of the guest.
+    The planned departure time of the guest.
 
-| Type     | Format  | Required |
-|:---------|:--------|:--------:|
-| `string` | `Y-m-d` |   Yes    |
+    | Type     | Format  | Required |
+    |:---------|:--------|:--------:|
+    | `string` | `Y-m-d` |   Yes    |
 
-#### `guests.*.scanned` [#guests-scanned]
+* #### `scanned` [#guests-scanned]
 
-The scanned document of the guest.
+    The scanned document of the guest.
 
-<Callout type="info" emoji="ℹ️">
-  VIZA expects all fields that the scanner could scan from the document to filled out.
+    <Callout type="info" emoji="ℹ️">
+      VIZA expects all fields that the scanner could scan from the document to filled out.
 
-  The scanned data mist be filled in here without any modification. \
-  Except the nationality, gender and document type, which have predefined values.
-</Callout>
+      The scanned data mist be filled in here without any modification. \
+      Except the nationality, gender and document type, which have predefined values.
+    </Callout>
 
-| Type     | Required |
-|:---------|:--------:|
-| `object` |   Yes    |
+    | Type     | Required |
+    |:---------|:--------:|
+    | `object` |   Yes    |
 
-##### `guests.*.scanned.firstName` [#guests-scanned-firstName]
+    * ##### `firstName` [#guests-scanned-firstName]
 
-First name of the guest.
+        First name of the guest.
 
-| Type     | Required |
-|:---------|:--------:|
-| `string` |   Yes    |
+        | Type     | Required |
+        |:---------|:--------:|
+        | `string` |   Yes    |
 
-##### `guests.*.scanned.lastName` [#guests-scanned-lastName]
+    * ##### `lastName` [#guests-scanned-lastName]
 
-Last name of the guest.
+      Last name of the guest.
 
-| Type     | Required |
-|:---------|:--------:|
-| `string` |   Yes    |
+      | Type     | Required |
+      |:---------|:--------:|
+      | `string` |   Yes    |
 
-##### `guests.*.scanned.birthFirstName` [#guests-scanned-birthFirstName]
+    * ##### `birthFirstName` [#guests-scanned-birthFirstName]
 
-Birth first name of the guest.
+        Birth first name of the guest.
 
-| Type     |        Required         |
-|:---------|:-----------------------:|
-| `string` | If it's on the document |
+        | Type     |        Required         |
+        |:---------|:-----------------------:|
+        | `string` | If it's on the document |
 
-##### `guests.*.scanned.birthLastName` [#guests-scanned-birthLastName]
+    * ##### `birthLastName` [#guests-scanned-birthLastName]
 
-Birth last name of the guest.
+        Birth last name of the guest.
 
-| Type     |        Required         |
-|:---------|:-----------------------:|
-| `string` | If it's on the document |
+        | Type     |        Required         |
+        |:---------|:-----------------------:|
+        | `string` | If it's on the document |
 
-##### `guests.*.scanned.dateOfBirth` [#guests-scanned-dateOfBirth]
+    * ##### `dateOfBirth` [#guests-scanned-dateOfBirth]
 
-Date of birth of the guest.
+        Date of birth of the guest.
 
-| Type     | Format  |        Required         |
-|:---------|:--------|:-----------------------:|
-| `string` | `Y-m-d` | If it's on the document |
+        | Type     | Format  |        Required         |
+        |:---------|:--------|:-----------------------:|
+        | `string` | `Y-m-d` | If it's on the document |
 
-##### `guests.*.scanned.placeOfBirth` [#guests-scanned-placeOfBirth]
+    * ##### `placeOfBirth` [#guests-scanned-placeOfBirth]
 
-Place of birth of the guest.
+        Place of birth of the guest.
 
-| Type     |        Required         |
-|:---------|:-----------------------:|
-| `string` | If it's on the document |
+        | Type     |        Required         |
+        |:---------|:-----------------------:|
+        | `string` | If it's on the document |
 
-##### `guests.*.scanned.motherFirstName` [#guests-scanned-motherFirstName]
+    * ##### `motherFirstName` [#guests-scanned-motherFirstName]
 
-Mother first name of the guest.
+        Mother first name of the guest.
 
-| Type     |        Required         |
-|:---------|:-----------------------:|
-| `string` | If it's on the document |
+        | Type     |        Required         |
+        |:---------|:-----------------------:|
+        | `string` | If it's on the document |
 
-##### `guests.*.scanned.motherLastName` [#guests-scanned-motherLastName]
+    * ##### `motherLastName` [#guests-scanned-motherLastName]
 
-Mother last name of the guest.
+        Mother last name of the guest.
 
-| Type     |        Required         |
-|:---------|:-----------------------:|
-| `string` | If it's on the document |
+        | Type     |        Required         |
+        |:---------|:-----------------------:|
+        | `string` | If it's on the document |
 
-##### `guests.*.scanned.nationality` [#guests-scanned-nationality]
+    * ##### `nationality` [#guests-scanned-nationality]
 
-Nationality of the guest.
+        Nationality of the guest.
 
-| Type     | Format                                                                      |        Required         |
-|:---------|:----------------------------------------------------------------------------|:-----------------------:|
-| `string` | [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code | If it's on the document |
+        | Type     | Format                                                                      |        Required         |
+        |:---------|:----------------------------------------------------------------------------|:-----------------------:|
+        | `string` | [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code | If it's on the document |
 
-##### `guests.*.scanned.gender` [#guests-scanned-gender]
+    * ##### `gender` [#guests-scanned-gender]
 
-Gender of the guest.
+        Gender of the guest.
 
-| Type                                       |        Required         |
-|:-------------------------------------------|:-----------------------:|
-| [`Gender`](/terminology/constants#genders) | If it's on the document |
+        | Type                                       |        Required         |
+        |:-------------------------------------------|:-----------------------:|
+        | [`Gender`](/terminology/constants#genders) | If it's on the document |
 
-##### `guests.*.scanned.documentType` [#guests-scanned-documentType]
+    * ##### `documentType` [#guests-scanned-documentType]
 
-Document type of the guest.
+        Document type of the guest.
 
-| Type                                                     | Required |
-|:---------------------------------------------------------|:--------:|
-| [`Document type`](/terminology/constants#document-types) |   Yes    |
+        | Type                                                     | Required |
+        |:---------------------------------------------------------|:--------:|
+        | [`Document type`](/terminology/constants#document-types) |   Yes    |
 
-##### `guests.*.scanned.documentNumber` [#guests-scanned-documentNumber]
+    * ##### `documentNumber` [#guests-scanned-documentNumber]
 
-Document number of the guest.
+        Document number of the guest.
 
-| Type     | Required |
-|:---------|:--------:|
-| `string` |   Yes    |
+        | Type     | Required |
+        |:---------|:--------:|
+        | `string` |   Yes    |
 
-#### `guests.*.manual` [#guests-manual]
+* #### `manual` [#guests-manual]
 
-The modified guest information.
+    The modified guest information.
 
-<Callout type="info" emoji="ℹ️">
-  We highly recommend that you should send every field that you have filled in the scanned document, even if it wasn't modified.
+    <Callout type="info" emoji="ℹ️">
+      We highly recommend that you should send every field that you have filled in the scanned document, even if it wasn't modified.
 
-  We'll make sure unmodified fields won't be in the report.
-</Callout>
+      We'll make sure unmodified fields won't be in the report.
+    </Callout>
 
-| Type     | Required |
-|:---------|:--------:|
-| `object` |   Yes    |
+    | Type     | Required |
+    |:---------|:--------:|
+    | `object` |   Yes    |
 
-##### `guests.*.manual.firstName` [#guests-manual-firstName]
+    * ##### `firstName` [#guests-manual-firstName]
 
-First name of the guest.
+        First name of the guest.
 
-| Type     | Required |
-|:---------|:--------:|
-| `string` |   Yes    |
+        | Type     | Required |
+        |:---------|:--------:|
+        | `string` |   Yes    |
 
-##### `guests.*.manual.lastName` [#guests-manual-lastName]
+    * ##### `lastName` [#guests-manual-lastName]
 
-Last name of the guest.
+        Last name of the guest.
 
-| Type     | Required |
-|:---------|:--------:|
-| `string` |   Yes    |
+        | Type     | Required |
+        |:---------|:--------:|
+        | `string` |   Yes    |
 
-##### `guests.*.manual.birthFirstName` [#guests-manual-birthFirstName]
+    * ##### `birthFirstName` [#guests-manual-birthFirstName]
 
-Birth first name of the guest.
+        Birth first name of the guest.
 
-| Type     |        Required         |
-|:---------|:-----------------------:|
-| `string` | If it's on the document |
+        | Type     |        Required         |
+        |:---------|:-----------------------:|
+        | `string` | If it's on the document |
 
-##### `guests.*.manual.birthLastName` [#guests-manual-birthLastName]
+    * ##### `birthLastName` [#guests-manual-birthLastName]
 
-Birth last name of the guest.
+        Birth last name of the guest.
 
-| Type     |        Required         |
-|:---------|:-----------------------:|
-| `string` | If it's on the document |
+        | Type     |        Required         |
+        |:---------|:-----------------------:|
+        | `string` | If it's on the document |
 
-##### `guests.*.manual.dateOfBirth` [#guests-manual-dateOfBirth]
+    * ##### `dateOfBirth` [#guests-manual-dateOfBirth]
 
-Date of birth of the guest.
+        Date of birth of the guest.
 
-| Type     | Format  |        Required         |
-|:---------|:--------|:-----------------------:|
-| `string` | `Y-m-d` | If it's on the document |
+        | Type     | Format  |        Required         |
+        |:---------|:--------|:-----------------------:|
+        | `string` | `Y-m-d` | If it's on the document |
 
-##### `guests.*.manual.placeOfBirth` [#guests-manual-placeOfBirth]
+    * ##### `placeOfBirth` [#guests-manual-placeOfBirth]
 
-Place of birth of the guest.
+        Place of birth of the guest.
 
-| Type     |        Required         |
-|:---------|:-----------------------:|
-| `string` | If it's on the document |
+        | Type     |        Required         |
+        |:---------|:-----------------------:|
+        | `string` | If it's on the document |
 
-##### `guests.*.manual.motherFirstName` [#guests-manual-motherFirstName]
+    * ##### `motherFirstName` [#guests-manual-motherFirstName]
 
-Mother first name of the guest.
+        Mother first name of the guest.
 
-| Type     |        Required         |
-|:---------|:-----------------------:|
-| `string` | If it's on the document |
+        | Type     |        Required         |
+        |:---------|:-----------------------:|
+        | `string` | If it's on the document |
 
-##### `guests.*.manual.motherLastName` [#guests-manual-motherLastName]
+    * ##### `motherLastName` [#guests-manual-motherLastName]
 
-Mother last name of the guest.
+        Mother last name of the guest.
 
-| Type     |        Required         |
-|:---------|:-----------------------:|
-| `string` | If it's on the document |
+        | Type     |        Required         |
+        |:---------|:-----------------------:|
+        | `string` | If it's on the document |
 
-##### `guests.*.manual.nationality` [#guests-manual-nationality]
+    * ##### `nationality` [#guests-manual-nationality]
 
-Nationality of the guest.
+        Nationality of the guest.
 
-| Type     | Format                                                                      |        Required         |
-|:---------|:----------------------------------------------------------------------------|:-----------------------:|
-| `string` | [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code | If it's on the document |
+        | Type     | Format                                                                      |        Required         |
+        |:---------|:----------------------------------------------------------------------------|:-----------------------:|
+        | `string` | [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code | If it's on the document |
 
-##### `guests.*.manual.gender` [#guests-manual-gender]
+    * ##### `gender` [#guests-manual-gender]
 
-Gender of the guest.
+        Gender of the guest.
 
-| Type                                       |        Required         |
-|:-------------------------------------------|:-----------------------:|
-| [`Gender`](/terminology/constants#genders) | If it's on the document |
+        | Type                                       |        Required         |
+        |:-------------------------------------------|:-----------------------:|
+        | [`Gender`](/terminology/constants#genders) | If it's on the document |
 
-##### `guests.*.manual.documentType` [#guests-manual-documentType]
+    * ##### `documentType` [#guests-manual-documentType]
 
-Document type of the guest.
+        Document type of the guest.
 
-| Type                                                     | Required |
-|:---------------------------------------------------------|:--------:|
-| [`Document type`](/terminology/constants#document-types) |   Yes    |
+        | Type                                                     | Required |
+        |:---------------------------------------------------------|:--------:|
+        | [`Document type`](/terminology/constants#document-types) |   Yes    |
 
-##### `guests.*.manual.documentNumber` [#guests-manual-documentNumber]
+    * ##### `documentNumber` [#guests-manual-documentNumber]
 
-Document number of the guest.
+        Document number of the guest.
 
-| Type     | Required |
-|:---------|:--------:|
-| `string` |   Yes    |
+        | Type     | Required |
+        |:---------|:--------:|
+        | `string` |   Yes    |
 
-#### `guests.*.visaNumber` [#guests-visaNumber]
+* #### `visaNumber` [#guests-visaNumber]
 
-Visa number of the guest.
+    Visa number of the guest.
 
-| Type     |     Required     |
-|:---------|:----------------:|
-| `string` | If it's relevant |
+    | Type     |     Required     |
+    |:---------|:----------------:|
+    | `string` | If it's relevant |
 
-#### `guests.*.visaDateOfEntry` [#guests-visaDateOfEntry]
+* #### `visaDateOfEntry` [#guests-visaDateOfEntry]
 
-Date of the visa entry.
+    Date of the visa entry.
 
-| Type     | Format  |     Required     |
-|:---------|:--------|:----------------:|
-| `string` | `Y-m-d` | If it's relevant |
+    | Type     | Format  |     Required     |
+    |:---------|:--------|:----------------:|
+    | `string` | `Y-m-d` | If it's relevant |
 
-#### `guests.*.visaPlaceOfEntry` [#guests-visaPlaceOfEntry]
+* #### `visaPlaceOfEntry` [#guests-visaPlaceOfEntry]
 
-Place of the visa entry.
+    Place of the visa entry.
 
-| Type     |     Required     |
-|:---------|:----------------:|
-| `string` | If it's relevant |
+    | Type     |     Required     |
+    |:---------|:----------------:|
+    | `string` | If it's relevant |
 
 [//]: # (@formatter:off)
 ```json copy
