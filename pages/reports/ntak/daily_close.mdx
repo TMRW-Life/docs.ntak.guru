@@ -47,171 +47,233 @@ The content of the authorization header, after decryption:
 
 ### `closedDay` [#operating-closed-day]
 
-| Type     | Description                            | Required |
-|:---------|:---------------------------------------|:--------:|
-| `string` | Date of the closed day. Format `Y-m-d` |   Yes    |
+Date of the closed day.
+
+| Type     | Format  | Required |
+|:---------|:--------|:--------:|
+| `string` | `Y-m-d` |   Yes    |
 
 ### `residentialUnits` [#operating-residential-units]
 
-| Type     | Description                                                                             | Required |
-|:---------|:----------------------------------------------------------------------------------------|:--------:|
-| `object` | Data describing the occupancy of the accommodation's room will be added to this object. |   Yes    |
+Data describing the occupancy of the accommodation's room will be added to this object.
+
+| Type     | Required |
+|:---------|:--------:|
+| `object` |   Yes    |
 
  * #### `all` [#operating-residential-units-all]
 
-    | Type     | Description                                                                                                                                                                          | Required |
-    |:---------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------:|
-    | `number` | On the day in question, all rooms in the accommodation, whether they can be rented out or not. It must match the total number of residential units entered during NTAK registration. |   Yes    |
+    On the day in question, all rooms in the accommodation, whether they can be rented out or not. It must match the total number of residential units entered during NTAK registration.
+
+    | Type     | Required |
+    |:---------|:--------:|
+    | `number` |   Yes    |
 
  * #### `ooo` [#operating-residential-units-ooo]
 
-    | Type     | Description                                                                                                                                                     | Required |
-    |:---------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------:|
-    | `number` | The number of rooms that are out of service in the long term. (Generally, due to renovation / planned capacity reduction, rooms cannot be reserved for guests.) |   Yes    |
+    The number of rooms that are out of service in the long term. (Generally, due to renovation / planned capacity reduction, rooms cannot be reserved for guests.)
+
+    | Type     | Required |
+    |:---------|:--------:|
+    | `number` |   Yes    |
 
  * #### `oos` [#operating-residential-units-oos]
 
-    | Type     | Description                                                                                                                         | Required |
-    |:---------|:------------------------------------------------------------------------------------------------------------------------------------|:--------:|
-    | `number` | Number of rooms that are out of service in the short term. (Generally, rooms outside the establishment can be reserved for guests.) |   Yes    |
+    Number of rooms that are out of service in the short term. (Generally, rooms outside the establishment can be reserved for guests.)
+
+    | Type     | Required |
+    |:---------|:--------:|
+    | `number` |   Yes    |
 
  * #### `occupied` [#operating-residential-units-occupied]
 
-    | Type     | Description                                                                                           | Required |
-    |:---------|:------------------------------------------------------------------------------------------------------|:--------:|
-    | `number` | The number of rooms where a guest lives on a given day. Departure and day use rooms are not included. |   Yes    |
+    The number of rooms where a guest lives on a given day. Departure and day use rooms are not included.
+
+    | Type     | Required |
+    |:---------|:--------:|
+    | `number` |   Yes    |
 
  * #### `available` [#operating-residential-units-available]
 
-    | Type     | Description                                                                                                                                                                                                                                                      | Required |
-    |:---------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------:|
-    | `number` | The number of rooms (residential units) where a guest can be accommodated on a given day, regardless of whether a guest lives there or not. The number of rooms that can be rented out also includes the number of rooms that are rented out and out of service. |   Yes    |
+    The number of rooms (residential units) where a guest can be accommodated on a given day,
+    regardless of whether a guest lives there or not.
+    The number of rooms that can be rented out also includes the number of rooms that are rented out and out of service.
+
+    | Type     | Required |
+    |:---------|:--------:|
+    | `number` |   Yes    |
 
 ### `afterStayExpenses` [#operating-after-stay-expenses]
 
-| Type                                             | Description                                                                                                                                        | Required |
-|:-------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------|:--------:|
-| [`Expense[]`](/terminology/ntak-objects#expense) | In this type, expenses recorded days or even weeks later after a room has been booked can be sent. The following fields of the type are available: | Nullable |
+In this type, expenses recorded days or even weeks later after a room has been booked can be sent.
+
+| Type                                             | Required |
+|:-------------------------------------------------|:--------:|
+| [`Expense[]`](/terminology/ntak-objects#expense) | Nullable |
 
 ### `afterStayLoads` [#operating-after-stay-loads]
 
-| Type                                       | Description                                                                                                                                     | Required |
-|:-------------------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------|:--------:|
-| [`Load[]`](/terminology/ntak-objects#load) | In this type, loads recorded days or even weeks later after a room has been booked can be sent. The following fields of the type are available: | Nullable |
+In this type, loads recorded days or even weeks later after a room has been booked can be sent.
+
+| Type                                       | Required |
+|:-------------------------------------------|:--------:|
+| [`Load[]`](/terminology/ntak-objects#load) | Nullable |
 
 ### `checkOutDaySales` [#operating-checkout-day-sales]
 
-| Type       | Description                                                                   | Required |
-|:-----------|:------------------------------------------------------------------------------|:--------:|
-| `object[]` | Debits and revenues related to the residential units on the day of check-out. | Nullable |
+Debits and revenues related to the residential units on the day of check-out.
+
+| Type       | Required |
+|:-----------|:--------:|
+| `object[]` | Nullable |
 
  * #### `residentialUnit` [#operating-checkout-day-sales-residential-unit]
 
-    | Type                                                             | Description | Required |
-    |:-----------------------------------------------------------------|:------------|:--------:|
-    | [`Residential unit`](/terminology/ntak-objects#residential-unit) |             |   Yes    |
+    | Type                                                             | Required |
+    |:-----------------------------------------------------------------|:--------:|
+    | [`Residential unit`](/terminology/ntak-objects#residential-unit) |   Yes    |
 
  * #### `salesChannel` [#operating-checkout-day-sales-sales-channel]
 
-    | Type                                                     | Description                                                                                | Required |
-    |:---------------------------------------------------------|:-------------------------------------------------------------------------------------------|:--------:|
-    | [`Sales channel`](/terminology/constants#sales-channels) | It is necessary to categorize the accommodation unit nights by pre-defined sales channels. |   Yes    |
+    It is necessary to categorize the accommodation unit nights by pre-defined sales channels.
+
+    | Type                                                     | Required |
+    |:---------------------------------------------------------|:--------:|
+    | [`Sales channel`](/terminology/constants#sales-channels) |   Yes    |
 
  * #### `marketSegment` [#operating-checkout-day-sales-market-segment]
 
-    | Type                                                       | Description                                                                 | Required |
-    |:-----------------------------------------------------------|:----------------------------------------------------------------------------|:--------:|
-    | [`Market segment`](/terminology/constants#market-segments) | Market segment value for the overnight reservation of the residential unit. |   Yes    |
+    Market segment value for the overnight reservation of the residential unit.
+
+    | Type                                                       | Required |
+    |:-----------------------------------------------------------|:--------:|
+    | [`Market segment`](/terminology/constants#market-segments) |   Yes    |
 
  * #### `reservationNumber` [#operating-checkout-day-sales-reservation-number]
 
-    | Type                                                        | Description                                                                                                                                                                                                                                            | Required |
-    |:------------------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------:|
-    | <span class="whitespace-nowrap">`string` \| `number`</span> | The reservation number for the overnight reservation of the residential unit. The same reservation number must be sent in the [reservation](/reports/ntak/reservation) report and in the event-driven messages associated with the reservation number. |   Yes    |
+    The reservation number for the overnight reservation of the residential unit. The same reservation number must be sent in the [reservation](/reports/ntak/reservation) report and in the event-driven messages associated with the reservation number.
+
+    | Type                 | Required |
+    |:---------------------|:--------:|
+    | `string` or `number` |   Yes    |
 
  * #### `expenses` [#operating-checkout-day-sales-expenses]
 
-    | Type                                           | Description                                                                                                                     | Required |
-    |:-----------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------|:--------:|
-    | [`Expense`](/terminology/ntak-objects#expense) | The expenditure is a gross item paid by the guest without VAT, the amount and type of which the NTAK system takes into account. | Nullable |
+    The expenditure is a gross item paid by the guest without VAT, the amount and type of which the NTAK system takes into account.
+
+    | Type                                           | Required |
+    |:-----------------------------------------------|:--------:|
+    | [`Expense`](/terminology/ntak-objects#expense) | Nullable |
 
  * #### `loads` [#operating-checkout-day-sales-loads]
 
-    | Type                                     | Description                                                                                   | Required |
-    |:-----------------------------------------|:----------------------------------------------------------------------------------------------|:--------:|
-    | [`Load`](/terminology/ntak-objects#load) | Gross amount with VAT rate and service category charged to the guest's account for a service. | Nullable |
+    Gross amount with VAT rate and service category charged to the guest's account for a service.
+
+    | Type                                     | Required |
+    |:-----------------------------------------|:--------:|
+    | [`Load`](/terminology/ntak-objects#load) | Nullable |
 
 ### `residentialUnitNights` [#operating-residential-unit-nights]
 
-| Type       | Description                                             | Required |
-|:-----------|:--------------------------------------------------------|:--------:|
-| `object[]` | Daily consumption data broken down by residential unit. | Nullable |
+Daily consumption data broken down by residential unit.
+
+| Type       | Required |
+|:-----------|:--------:|
+| `object[]` | Nullable |
 
  * #### `guests` [#operating-residential-unit-nights-guests]
 
-    | Type                                         | Description                                                                    | Required |
-    |:---------------------------------------------|:-------------------------------------------------------------------------------|:--------:|
-    | [`Guest[]`](/terminology/ntak-objects#guest) | The field is used to describe the data of the guests staying in the apartment. |   Yes    |
+    The field is used to describe the data of the guests staying in the apartment.
+
+    | Type                                         | Required |
+    |:---------------------------------------------|:--------:|
+    | [`Guest[]`](/terminology/ntak-objects#guest) |   Yes    |
 
  * #### `dayUse` [#operating-residential-unit-nights-dayuse]
 
-    | Type      | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                 | Required |
-    |:----------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------:|
-    | `boolean` | The `dayUse` field indicates that a certain Residential unit was used as "day use" only during the day, the guest did not spend the night in the given housing unit. In case of daytime use, a certain Residential unit can be sent multiple times in the `residentialUnitNights` list, however, it can only be sent once with the value of the Daytime use field set to false (since a certain residential unit can only be filled for one night per day). |   Yes    |
+    The `dayUse` field indicates that a certain Residential unit was used as "day use" only during the day,
+    the guest did not spend the night in the given housing unit.
+    In case of daytime use, a certain Residential unit can be sent multiple times in the `residentialUnitNights` list,
+    however, it can only be sent once with the value of the Daytime use field set to false
+    (since a certain residential unit can only be filled for one night per day).
+
+    | Type      | Required |
+    |:----------|:--------:|
+    | `boolean` |   Yes    |
 
  * #### `residentialUnit` [#operating-residential-unit-nights-residential-unit]
 
-    | Type                                                             | Description | Required |
-    |:-----------------------------------------------------------------|:------------|:--------:|
-    | [`Residential unit`](/terminology/ntak-objects#residential-unit) |             |   Yes    |
+    | Type                                                             | Required |
+    |:-----------------------------------------------------------------|:--------:|
+    | [`Residential unit`](/terminology/ntak-objects#residential-unit) |   Yes    |
 
  * #### `salesChannel` [#operating-residential-unit-nights-sales-channel]
 
-    | Type                                                     | Description                                                                                | Required |
-    |:---------------------------------------------------------|:-------------------------------------------------------------------------------------------|:--------:|
-    | [`Sales channel`](/terminology/constants#sales-channels) | It is necessary to categorize the accommodation unit nights by pre-defined sales channels. |   Yes    |
+    It is necessary to categorize the accommodation unit nights by pre-defined sales channels.
+
+    | Type                                                     | Required |
+    |:---------------------------------------------------------|:--------:|
+    | [`Sales channel`](/terminology/constants#sales-channels) |   Yes    |
 
  * #### `marketSegment` [#operating-residential-unit-nights-market-segment]
 
-    | Type                                                       | Description                                                                 | Required |
-    |:-----------------------------------------------------------|:----------------------------------------------------------------------------|:--------:|
-    | [`Market segment`](/terminology/constants#market-segments) | Market segment value for the overnight reservation of the residential unit. |   Yes    |
+    Market segment value for the overnight reservation of the residential unit.
+
+    | Type                                                       | Required |
+    |:-----------------------------------------------------------|:--------:|
+    | [`Market segment`](/terminology/constants#market-segments) |   Yes    |
 
  * #### `reservationNumber` [#operating-residential-unit-nights-reservation-number]
 
-    | Type                                                        | Description                                                                                                                                                                                                                                            | Required |
-    |:------------------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------:|
-    | <span class="whitespace-nowrap">`string` \| `number`</span> | The reservation number for the overnight reservation of the residential unit. The same reservation number must be sent in the [reservation](/reports/ntak/reservation) report and in the event-driven messages associated with the reservation number. |   Yes    |
+    The reservation number for the overnight reservation of the residential unit.
+    The same reservation number must be sent in the [reservation](/reports/ntak/reservation) report and in the event-driven messages
+    associated with the reservation number.
+
+    | Type                 | Required |
+    |:---------------------|:--------:|
+    | `string` or `number` |   Yes    |
 
  * #### `expenses` [#operating-residential-unit-nights-expenses]
 
-    | Type                                           | Description                                                                                                                     | Required |
-    |:-----------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------|:--------:|
-    | [`Expense`](/terminology/ntak-objects#expense) | The expenditure is a gross item paid by the guest without VAT, the amount and type of which the NTAK system takes into account. | Nullable |
+    The expenditure is a gross item paid by the guest without VAT, the amount and type of which the NTAK system takes into account.
+
+    | Type                                           | Required |
+    |:-----------------------------------------------|:--------:|
+    | [`Expense`](/terminology/ntak-objects#expense) | Nullable |
 
  * #### `loads` [#operating-residential-unit-nights-loads]
 
-    | Type                                     | Description                                                                                   | Required |
-    |:-----------------------------------------|:----------------------------------------------------------------------------------------------|:--------:|
-    | [`Load`](/terminology/ntak-objects#load) | Gross amount with VAT rate and service category charged to the guest's account for a service. | Nullable |
+    Gross amount with VAT rate and service category charged to the guest's account for a service.
+
+    | Type                                     | Required |
+    |:-----------------------------------------|:--------:|
+    | [`Load`](/terminology/ntak-objects#load) | Nullable |
 
 ### `otherExpenses` [#operating-other-expenses]
 
-| Type                                             | Description                                                                       | Required |
-|:-------------------------------------------------|:----------------------------------------------------------------------------------|:--------:|
-| [`Expense[]`](/terminology/ntak-objects#expense) | Data type summarizing other expenses that cannot be linked to a residential unit. | Nullable |
+Data type summarizing other expenses that cannot be linked to a residential unit.
+
+| Type                                             | Required |
+|:-------------------------------------------------|:--------:|
+| [`Expense[]`](/terminology/ntak-objects#expense) | Nullable |
 
 ### `otherLoads` [#operating-other-loads]
 
-| Type                                       | Description                                                                                                        | Required |
-|:-------------------------------------------|:-------------------------------------------------------------------------------------------------------------------|:--------:|
-| [`Load[]`](/terminology/ntak-objects#load) | Data type summarizing other loads that cannot be linked to a residential unit. `isTouristTax` property is ignored. | Nullable |
+Data type summarizing other loads that cannot be linked to a residential unit.
+
+`isTouristTax` property is ignored.
+
+| Type                                       | Required |
+|:-------------------------------------------|:--------:|
+| [`Load[]`](/terminology/ntak-objects#load) | Nullable |
 
 ### `outOfOrderResidentialUnits` [#operating-out-of-order-residential-units]
 
-| Type                                                               | Description                                                                        | Required |
-|:-------------------------------------------------------------------|:-----------------------------------------------------------------------------------|:--------:|
-| [`Residential unit[]`](/terminology/ntak-objects#residential-unit) | The list of rooms of the accommodation that are not in operation on the given day. | Nullable |
+The list of rooms of the accommodation that are not in operation on the given day.
+
+| Type                                                               | Required |
+|:-------------------------------------------------------------------|:--------:|
+| [`Residential unit[]`](/terminology/ntak-objects#residential-unit) | Nullable |
 
 ```json copy
 {
@@ -345,51 +407,72 @@ The content of the authorization header, after decryption:
 
 ### `closedDay` [#not-operating-closed-day]
 
-| Type     | Description                            | Required |
-|:---------|:---------------------------------------|:--------:|
-| `string` | Date of the closed day. Format `Y-m-d` |   Yes    |
+Date of the closed day.
+
+| Type     | Format  | Required |
+|:---------|:--------|:--------:|
+| `string` | `Y-m-d` |   Yes    |
 
 ### `accommodationNotOperating` [#not-operating-accommodation-not-operating]
 
-| Type      | Description                                                                                                                                                                                                  | Required |
-|:----------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------:|
-| `boolean` | In the event that an accommodation is closed on the given day, it is necessary to send a daily closing message by setting the `accommodationNotOperating` field of the Daily Close type to the value "true". |   Yes    |
+In the event that an accommodation is closed on the given day,
+it is necessary to send a daily closing message by setting the `accommodationNotOperating` field of the
+Daily Close type to the value "true".
+
+| Type      | Required |
+|:----------|:--------:|
+| `boolean` |   Yes    |
 
 ### `residentialUnits` [#not-operating-residential-units]
 
-| Type     | Description                                                                             | Required |
-|:---------|:----------------------------------------------------------------------------------------|:--------:|
-| `object` | Data describing the occupancy of the accommodation's room will be added to this object. |   Yes    |
+Data describing the occupancy of the accommodation's room will be added to this object.
+
+| Type     | Required |
+|:---------|:--------:|
+| `object` |   Yes    |
 
  * #### `all` [#not-operating-residential-units-all]
 
-    | Type     | Description                                                                                                                                                                          | Required |
-    |:---------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------:|
-    | `number` | On the day in question, all rooms in the accommodation, whether they can be rented out or not. It must match the total number of residential units entered during NTAK registration. |   Yes    |
+    On the day in question, all rooms in the accommodation, whether they can be rented out or not.
+    It must match the total number of residential units entered during NTAK registration.
+
+    | Type     | Required |
+    |:---------|:--------:|
+    | `number` |   Yes    |
 
  * #### `ooo` [#not-operating-residential-units-ooo]
 
-    | Type     | Description                                                                                                                                                     | Required |
-    |:---------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------:|
-    | `number` | The number of rooms that are out of service in the long term. (Generally, due to renovation / planned capacity reduction, rooms cannot be reserved for guests.) |   Yes    |
+    The number of rooms that are out of service in the long term. (Generally, due to renovation / planned capacity reduction, rooms cannot be reserved for guests.)
+
+    | Type     | Required |
+    |:---------|:--------:|
+    | `number` |   Yes    |
 
  * #### `oos` [#not-operating-residential-units-oos]
 
-    | Type     | Description                                                                                                                         | Required |
-    |:---------|:------------------------------------------------------------------------------------------------------------------------------------|:--------:|
-    | `number` | Number of rooms that are out of service in the short term. (Generally, rooms outside the establishment can be reserved for guests.) |   Yes    |
+    Number of rooms that are out of service in the short term. (Generally, rooms outside the establishment can be reserved for guests.)
+
+    | Type     | Required |
+    |:---------|:--------:|
+    | `number` |   Yes    |
 
  * #### `occupied` [#not-operating-residential-units-occupied]
 
-    | Type     | Description                                                                                           | Required |
-    |:---------|:------------------------------------------------------------------------------------------------------|:--------:|
-    | `number` | The number of rooms where a guest lives on a given day. Departure and day use rooms are not included. |   Yes    |
+    The number of rooms where a guest lives on a given day. Departure and day use rooms are not included.
+
+    | Type     | Required |
+    |:---------|:--------:|
+    | `number` |   Yes    |
 
  * #### `available` [#not-operating-residential-units-available]
 
-    | Type     | Description                                                                                                                                                                                                                                                      | Required |
-    |:---------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------:|
-    | `number` | The number of rooms (residential units) where a guest can be accommodated on a given day, regardless of whether a guest lives there or not. The number of rooms that can be rented out also includes the number of rooms that are rented out and out of service. |   Yes    |
+    The number of rooms (residential units) where a guest can be accommodated on a given day,
+    regardless of whether a guest lives there or not.
+    The number of rooms that can be rented out also includes the number of rooms that are rented out and out of service.
+
+    | Type     | Required |
+    |:---------|:--------:|
+    | `number` |   Yes    |
 
 ```json copy
 {
