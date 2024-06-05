@@ -73,22 +73,22 @@ The guests who check in to the accommodation. Minimum 1 guest.
 |:-----------|:--------:|
 | `object[]` |   Yes    |
 
-#### `guests.*.id` [#guests-id]
+* ##### `id` [#guests-id]
 
-The unique identifier of the guest. \
-This ID must be the same as it was in the [check in](/reports/viza/check_in) report.
+    The unique identifier of the guest. \
+    This ID must be the same as it was in the [check in](/reports/viza/check_in) report.
 
-| Type   | Required |
-|:-------|:--------:|
-| `uuid` |   Yes    |
+    | Type   | Required |
+    |:-------|:--------:|
+    | `uuid` |   Yes    |
 
-#### `guests.*.departure` [#guests-departure]
+* ##### `departure` [#guests-departure]
 
-The date and time of the departure of the guest.
+    The date and time of the departure of the guest.
 
-| Type     | Format            | Required |
-|:---------|:------------------|:--------:|
-| `string` | `Y-m-d H:i:s` UTC |   Yes    |
+    | Type     | Format            | Required |
+    |:---------|:------------------|:--------:|
+    | `string` | `Y-m-d H:i:s` UTC |   Yes    |
 
 [//]: # (@formatter:off)
 ```json copy
