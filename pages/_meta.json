@@ -3,8 +3,7 @@
     "type": "separator",
     "title": "Guides"
   },
-  "index": "Introduction",
-  "get-started": "",
+  "index": "Get started",
   "sdks": "SDKs",
   "servers": "",
   "authentication": "",
@@ -16,6 +15,6 @@
     "title": "Endpoints"
   },
   "accommodations": "Accommodations",
-  "certificates": "Certificates",
+  "certificate": "Certificate",
   "reports": "Reports"
 }

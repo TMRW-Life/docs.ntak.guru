@@ -1,35 +1,37 @@
-import {Tabs, Callout} from 'nextra/components'
+import {Tabs} from 'nextra/components'
 import Protocol from "../../components/protocol";
 
-# Deactivate Reporting
+# Upload
 
-This endpoint allows you to deactivate reporting on an accommodation by providing the accommodation `id`.
+This endpoint allows you to upload the certificate to an accommodation by providing the accommodation `id`.
 
 ## Request
 
-<Protocol method="POST" path="/v1/accommodations/{accommodation}/deactivate" />
+<Protocol method="PUT" path="/v1/accommodations/{accommodation}/certificates" />
 
 <Tabs items={['cURL', 'PHP']}>
   <Tabs.Tab>
     [//]: # (@formatter:off)
     ```bash copy
-    curl -X POST https://api.ntak.guru/v1/accommodations/99845d23-7ffb-4267-85ef-c8d4ac70e46a/deactivate \
+    curl -X PUT https://api.ntak.guru/v1/accommodations/99845d23-7ffb-4267-85ef-c8d4ac70e46a/certificates \
       -H "Authorization: Bearer {token}" \
-      -H "Accept: application/json"
+      -H "Accept: application/json" \
+      -H "Content-Type: application/json" \
+      -d '{"certificate": {content-of-certificate-file}}'
     ```
     [//]: # (@formatter:on)
   </Tabs.Tab>
   <Tabs.Tab>
     [//]: # (@formatter:off)
     ```php copy
-    use TmrwLife\NtakGuru\Services\Accommodation;
+    use TmrwLife\NtakGuru\Services\Certificate;
 
-    $gateway = Accommodation::setup([
+    $gateway = Certificate::setup([
       'accessToken' => {token},
       'isProduction' => false, // default: false
     ]);
 
-    $response = $gateway->deactivate('99845d23-7ffb-4267-85ef-c8d4ac70e46a');
+    $gateway->upload('99845d23-7ffb-4267-85ef-c8d4ac70e46a', '{content-of-certificate-file}');
     ```
     [//]: # (@formatter:on)
   </Tabs.Tab>
@@ -43,11 +45,8 @@ This endpoint allows you to deactivate reporting on an accommodation by providin
 
 ## Response
 
-<Tabs items={[200, 401, 403, 404]}>
+<Tabs items={[200, 401, 403, 404, 422]}>
   <Tabs.Tab>
-    <Callout type="info" emoji="ℹ️">
-      Read more about the accommodation object on [this page](/accommodations).
-    </Callout>
     [//]: # (@formatter:off)
     ```json copy
     {
@@ -56,7 +55,7 @@ This endpoint allows you to deactivate reporting on an accommodation by providin
         "slug": "rqdsw",
         "name": "Senger-Cummerata",
         "providerName": "New Provider Ltd.",
-        "providerTaxNumber": "12345678-1-12",
+        "providerTaxNumber": "00577793-3-55",
         "postalCode": "08099-0380",
         "locality": "East Cassidyshire",
         "reportingId": "OAMP7C0P",
@@ -65,7 +64,7 @@ This endpoint allows you to deactivate reporting on an accommodation by providin
         "hasPendingCertificate": false,
         "callbackUrl": "https://example.com/callback",
         "dailyCloseUrl": "https://example.com/daily-close",
-        "expireAt": "2023-06-28T07:36:13+00:00",
+        "expireAt": "2027-07-03T16:01:36+00:00",
         "roles": [
           "Owner",
         ],
@@ -74,7 +73,6 @@ This endpoint allows you to deactivate reporting on an accommodation by providin
       },
       "message": null
     }
-
     ```
     [//]: # (@formatter:on)
   </Tabs.Tab>
@@ -101,6 +99,21 @@ This endpoint allows you to deactivate reporting on an accommodation by providin
     ```json copy
     {
       "message": "Page not found."
+    }
+    ```
+    [//]: # (@formatter:on)
+  </Tabs.Tab>
+  <Tabs.Tab>
+    [//]: # (@formatter:off)
+    ```json copy
+    {
+      "message": "The certificate field is required",
+      "errors": {
+        "certificate": [
+          "The certificate field is required.",
+          "The certificate and private key do not match."
+        ]
+      }
     }
     ```
     [//]: # (@formatter:on)

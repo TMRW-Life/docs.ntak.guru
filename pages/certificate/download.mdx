@@ -1,0 +1,115 @@
+import {Tabs} from 'nextra/components'
+import Protocol from "../../components/protocol";
+
+# Download
+
+This endpoint allows you to download the pending certificate request file, `.CSR`, by providing the accommodation `id`.
+
+## Request
+
+<Protocol method="GET" path="/v1/accommodations/{accommodation}/certificates" />
+
+<Tabs items={['cURL', 'PHP']}>
+  <Tabs.Tab>
+    [//]: # (@formatter:off)
+    ```bash copy
+    curl https://api.ntak.guru/v1/accommodations/99845d23-7ffb-4267-85ef-c8d4ac70e46a/certificates \
+      -H "Authorization: Bearer {token}" \
+      -H "Accept: application/pkcs10"
+    ```
+    [//]: # (@formatter:on)
+  </Tabs.Tab>
+  <Tabs.Tab>
+    [//]: # (@formatter:off)
+    ```php copy
+    use TmrwLife\NtakGuru\Services\Certificate;
+
+    $gateway = Certificate::setup([
+      'accessToken' => {token},
+      'isProduction' => false, // default: false
+    ]);
+
+    $response = $gateway->download('99845d23-7ffb-4267-85ef-c8d4ac70e46a');
+    ```
+    [//]: # (@formatter:on)
+  </Tabs.Tab>
+</Tabs>
+
+### URL Parameters
+
+| Name            | Description            |
+|:----------------|:-----------------------|
+| `accommodation` | The accommodation `id` |
+
+## Response
+
+<Tabs items={[200, 401, 403, 404, 409]}>
+  <Tabs.Tab>
+    [//]: # (@formatter:off)
+    ```
+    -----BEGIN CERTIFICATE REQUEST-----
+    MIIEeDCCAmACAQAwADCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBA1fr
+    sX+BmqZuTW+XKmFwZ8XFjeO+WbhkAX7F+a6Kaec1TwE0FRF9i373IHMTkO54NT08
+    L1DihE9cd11G0d3/ieLwCMNKreBHApqPPwKLzkRQ29NKI0HJov2qYCMXf6lpaPRg
+    uap9jkjz9aDHvceurDZ91kKt3L+NRg/XslsqfND+SINqSk4EraSWYiwANO3x6EgF
+    /u98M+VhetRPQa9Zb6TarmPWjQIMIZ0mda73ZRVWURb/uytAEk8PpAeWszz+Ql4g
+    rTqaF7frfLVKTfKQKG0j0zHxefDXuNqlug3YGgh7fgxI305KhJqDyvRlnMz7/Exr
+    pKmyVksw7xjRN4hRsK/5mg/YrtIoz8yH5LR8c0CTp8ZncpanxBBxzI7mM6EHO+WL
+    /Mui6H4ejaBePZb+WeHJkRy0CW4ekhWgnpkL7MM/oFyqtrZK7/wRtnYgFkVDbduz
+    eR2bld82jEu5JBnk9qEG9NIqACYccuhT8Tk3UAHw2o9u/5mw/Yk4+EpEp+20D1ta
+    CRjce43uGV5x6mQMw2QwziXdMDsAH97M7wR0btiFMqYNeBmbVETQIe0aVg5AQxYD
+    pi6FjQRgqu8DTDygcDwLp58VMzHjKvwjXNHeknZkJrVy2QVeKBBdIwkjhgNpsU8f
+    G8P7mSYfmK+O5Aaw76yyzrZ1CG7Qi2uUxbgU19MPAgMBAAGgMzAxBgkqhkiG9w0B
+    CQ4xJDAiMAsGA1UdDwQEAwIF4DATBgNVHSUEDDAKBggrBgEFBQcDAjANBgkqhkiG
+    9w0BAQsFAAOCAgEAkMK+1aVpTWp9jqxiBpi1KI/O+0A86q88BAeBVD2/Ft0Fjlts
+    PgggoA5XpS2faJQGkfU5Mctdv7fVSpnOeNSZMUt8q8TKelT2DmUIiMcX/S3fYBdK
+    8eRd4ZZY9jQC6LIQEAy+JtcVTxxMXwAzVQUZOOZOOcZrA3+h16LnOjekH2RpT+qz
+    rKMO1xicLNUzfgcKexdk4Fjffs51C9bqasT+grznA0FWbc9i8ffet9vg9qzsCJzn
+    3b3JCKxYrcj6JMdAWJvuSYGvqRcdmhkbRFNrwytuFOKdIZFOfiL8AldYrZguXfdS
+    1rmsAEGG/VAsz4dSbqi/p8zZH2lYp8Dg/0MfGcPXroDC/LIcEFWIh/8e4vUmKxui
+    hTN9O3SyrlonzykHfRPEvvMwVegzxQpA2sdTqZP1yNPcTJpk81OUyrtLahdc/S8T
+    KkYmCFs0cMU9vABLyZJJYxjJRpEOQbuBLqcfw2GYlU+PSheXs4qsuBdDQDEIpOdf
+    Fm4gJltwcDo1whh7CH1xsVot1x3TVL4qGiluNyLG+b5Vtt6ExqGq/Rek47pvQ29F
+    nGQBv0wVldO1u5JxS3LnQxJVTkyn2BQWUV+qAEx6iuXMYS2dbBm/xUWWsHWNn5p+
+    4FZ5gN3dCjW2WGqQoLKoJas5KYiAZBBnWQ2KiAeNiiSlGs6P3qi4UkSXrdA=
+    -----END CERTIFICATE REQUEST-----
+    ```
+    [//]: # (@formatter:on)
+  </Tabs.Tab>
+  <Tabs.Tab>
+    [//]: # (@formatter:off)
+    ```json copy
+    {
+      "message": "Unauthenticated."
+    }
+    ```
+    [//]: # (@formatter:on)
+  </Tabs.Tab>
+  <Tabs.Tab>
+    [//]: # (@formatter:off)
+    ```json copy
+    {
+      "message": "Unauthorized."
+    }
+    ```
+    [//]: # (@formatter:on)
+  </Tabs.Tab>
+  <Tabs.Tab>
+    [//]: # (@formatter:off)
+    ```json copy
+    {
+      "message": "Page not found."
+    }
+    ```
+    [//]: # (@formatter:on)
+  </Tabs.Tab>
+  <Tabs.Tab>
+    [//]: # (@formatter:off)
+    ```json copy
+    {
+      "message": "This accommodation does not own certificate."
+    }
+    ```
+    [//]: # (@formatter:on)
+  </Tabs.Tab>
+</Tabs>

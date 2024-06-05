@@ -1,0 +1,34 @@
+import { Callout } from 'nextra/components'
+
+# Certificate
+
+A certificate is used for encryption and communication between NTAK.guru and the government's NTAK system.
+It is mandatory for every accommodation to have a live certificate in order to carry out reporting activities.
+
+Technically, the certificate model is not available in the API.
+However, it is important to understand the structure of the certificate object.
+
+First, you need to generate a certificate for your accommodation, which will result in a pending certificate.
+You can only have one pending certificate at a time. \
+When you have a pending certificate, the `hasPendingCertificate{:json}` property in the accommodation object will be set to `true{:json}`.
+
+While you have a pending certificate, you can download the certificate request file, `.CSR`. \
+This file is used to generate the certificate in the government's NTAK system. \
+Once the certificate is generated, you can upload the certificate file, `.CER`, to NTAK.guru. \
+At this point, we will convert your pending certificate to a live certificate. The `hasPendingCertificate{:json}` property will be set to `false{:json}`, and the `hasLiveCertificate{:json}` property will be set to `true{:json}`.
+
+The `.CER` file contains the following properties:
+
+ * `name{:json}`: The name of the accommodation.
+ * `providerName{:json}`: The name of the accommodation provider.
+ * `providerTaxNumber{:json}`: The tax number of the accommodation provider.
+ * `postalCode{:json}`: The postal code of the accommodation.
+ * `locality{:json}`: The locality of the accommodation.
+ * `reportingId{:json}`: The reporting ID of the accommodation.
+ * `expireAt{:json}`: The expiration date of the certificate.
+
+<Callout type="info" emoji="ℹ️">
+  Previously, we encountered an issue with the `.CSR` file. Occasionally, the government's NTAK system does not accept the `.CSR` file, even if the private key has been newly created.
+
+  In such cases, it is necessary to delete the pending certificate and generate a new one.
+</Callout>

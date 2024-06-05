@@ -1,0 +1,255 @@
+import {Tabs, Callout} from 'nextra/components'
+import Protocol from "../../../components/protocol";
+
+# NTAK Reservation event
+
+On this page, we will explore the process of programmatically constructing the NTAK reservation report.
+We will delve into the steps and techniques required to build the report dynamically through code.
+
+Send this report, when a reservation is created in your PMS, or when a reservation is modified.
+
+## Request
+
+<Protocol method="POST" path="/v1/accommodations/{accommodation}/reports/ntak/reservation" />
+
+<Tabs items={['cURL', 'PHP']}>
+  <Tabs.Tab>
+    [//]: # (@formatter:off)
+    ```bash copy
+    curl -X POST https://api.ntak.guru/v1/accommodations/99845d23-7ffb-4267-85ef-c8d4ac70e46a/reports/ntak/reservation \
+      -H "Authorization: Bearer {token}" \
+      -H "Accept: application/json" \
+      -H "Content-Type: application/json" \
+      -d '{"arrival":"2022-06-15","departure":"2022-06-17","cancelled":false,"guestCount":2,"reservationNumber":34478,"marketSegment":"vacation_individual","reservedAt":"2022-06-02 13:24:32","occurredAt":"2022-06-02 13:24:32","salesChannel":"directly_online","grossAmount":286.2,"nationality":"HU","bookedResidentialUnits":[{"type":"economy","capacity":2}]}'
+    ```
+    [//]: # (@formatter:on)
+  </Tabs.Tab>
+  <Tabs.Tab>
+    [//]: # (@formatter:off)
+    ```php copy
+    use TmrwLife\NtakGuru\Entities\Ntak\CheckIn;
+    use TmrwLife\NtakGuru\Entities\Ntak\Guest;
+    use TmrwLife\NtakGuru\Entities\Ntak\ResidentialUnit;
+    use TmrwLife\NtakGuru\Enums\Gender;
+    use TmrwLife\NtakGuru\Enums\ResidentialUnitType;
+    use TmrwLife\NtakGuru\Enums\TouristTax;
+    use TmrwLife\NtakGuru\Services\Reporting\Ntak;
+
+    $gateway = Ntak::setup([
+      'accessToken' => {token},
+      'isProduction' => false, // default: false
+    ]);
+
+    $guest = (new Guest())
+      ->setGender(Gender::MALE)
+      ->setGuestNumber('00000000-0000-0000-0000-000000000000')
+      ->setYearOfBirth(1957)
+      ->setTouristTaxStatus(TouristTax::OBLIGED)
+      ->setNationalityCountryCode('HU')
+      ->setResidencePostCode('04070')
+      ->setResidenceCountryCode('HU');
+
+    $unit = (new ResidentialUnit())
+      ->setType(ResidentialUnitType::APARTMENT)
+      ->setBuilding('a')
+      ->setNumber("402")
+      ->setSingleBedCount(0)
+      ->setDoubleBedCount(0)
+      ->setTrundleBedCount(1);
+
+    $checkIn = (new CheckIn())
+      ->setReservationNumber(10000)
+      ->setOccurredAt('2022-06-12 17:35:27')
+      ->addGuest($guest)
+      ->setOccupiedResidentialUnit($unit);
+
+    $response = $gateway->checkIn(
+      accommodation: '99845d23-7ffb-4267-85ef-c8d4ac70e46a',
+      entity: $checkIn
+    );
+    ```
+    [//]: # (@formatter:on)
+  </Tabs.Tab>
+</Tabs>
+
+### URL Parameters
+
+| Name            | Description            |
+|:----------------|:-----------------------|
+| `accommodation` | The accommodation `id` |
+
+### Request body
+
+#### `arrival`
+
+| Type     | Format  | Description                      | Required |
+|:---------|:--------|:---------------------------------|:--------:|
+| `string` | `Y-m-d` | Arrival date of the reservation. |   Yes    |
+
+#### `departure`
+
+| Type     | Format  | Description                        | Required |
+|:---------|:--------|:-----------------------------------|:--------:|
+| `string` | `Y-m-d` | Departure date of the reservation. |   Yes    |
+
+#### `cancelled`
+
+| Type      | Description                   | Required |
+|:----------|:------------------------------|:--------:|
+| `boolean` | Is the reservation cancelled? |   Yes    |
+
+#### `guestCount`
+
+| Type     | Description                                           | Required |
+|:---------|:------------------------------------------------------|:--------:|
+| `number` | Number of guests in the reservation. Minimum 1 guest. |   Yes    |
+
+#### `reservationNumber`
+
+| Type                 | Description                               | Required |
+|:---------------------|:------------------------------------------|:--------:|
+| `string` \| `number` | The unique identifier of the reservation. |   Yes    |
+
+#### `marketSegment`
+
+| Type                                                     | Description                        | Required |
+|:---------------------------------------------------------|:-----------------------------------|:--------:|
+| [Market segment](/terminology/constants#market-segments) | Market segment of the reservation. |   Yes    |
+
+#### `reservedAt`
+
+| Type     | Format            | Description              | Required |
+|:---------|:------------------|:-------------------------|:--------:|
+| `string` | `Y-m-d H:i:s` UTC | Date of the reservation. |   Yes    |
+
+#### `occurredAt`
+
+| Type     | Format            | Description        | Required |
+|:---------|:------------------|:-------------------|:--------:|
+| `string` | `Y-m-d H:i:s` UTC | Date of the event. |   Yes    |
+
+#### `salesChannel`
+
+| Type                                                   | Description                       | Required |
+|:-------------------------------------------------------|:----------------------------------|:--------:|
+| [Sales channel](/terminology/constants#sales-channels) | Sales channel of the reservation. |   Yes    |
+
+#### `grossAmount`
+
+| Type     | Description                      | Required |
+|:---------|:---------------------------------|:--------:|
+| `number` | Gross amount of the reservation. |   Yes    |
+
+<Callout type="warning" emoji="⚠️">
+  __This value must be converted to HUF.__
+</Callout>
+
+#### `nationality`
+
+| Type     | Description                                                                                            | Required |
+|:---------|:-------------------------------------------------------------------------------------------------------|:--------:|
+| `string` | The [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code of the booking person. |   Yes    |
+
+#### `bookedResidentialUnits`
+
+| Type       | Description                       | Required |
+|:-----------|:----------------------------------|:--------:|
+| `object[]` | List of booked residential units. |   Yes    |
+
+* `bookedResidentialUnits.*.type`
+
+    | Type                                                                   | Description                   | Required |
+    |:-----------------------------------------------------------------------|:------------------------------|:--------:|
+    | [Residential unit type](/terminology/constants#residential-unit-types) | Type of the residential unit. |   Yes    |
+
+* `bookedResidentialUnits.*.capacity`
+
+    | Type     | Description                       | Required |
+    |:---------|:----------------------------------|:--------:|
+    | `number` | Capacity of the residential unit. |   Yes    |
+
+[//]: # (@formatter:off)
+```json copy
+{
+  "arrival": "2022-06-15",
+  "departure": "2022-06-17",
+  "cancelled": false,
+  "guestCount": 2,
+  "reservationNumber": 34478,
+  "marketSegment": "vacation_individual",
+  "reservedAt": "2022-06-02 13:24:32",
+  "occurredAt": "2022-06-02 13:24:32",
+  "salesChannel": "directly_online",
+  "grossAmount": 286.2,
+  "nationality": "HU",
+  "bookedResidentialUnits": [
+    {
+      "type": "economy",
+      "capacity": 2
+    }
+  ]
+}
+
+```
+[//]: # (@formatter:on)
+
+## Response
+
+<Tabs items={[200, 401, 403]}>
+  <Tabs.Tab>
+    [//]: # (@formatter:off)
+    ```json copy
+    {
+      "id": "00000000-0000-0000-0000-000000000000",
+      "messageId": "00000000-0000-0000-0000-000000000000",
+      "service": "ntak",
+      "status": "peding",
+      "reason": "Report arrived from PMS",
+      "type": "check_in",
+      "context": {
+        "arrival": "2022-06-15",
+        "departure": "2022-06-17",
+        "cancelled": false,
+        "guestCount": 2,
+        "reservationNumber": 34478,
+        "marketSegment": "vacation_individual",
+        "reservedAt": "2022-06-02 13:24:32",
+        "occurredAt": "2022-06-02 13:24:32",
+        "salesChannel": "directly_online",
+        "grossAmount": 286.2,
+        "nationality": "HU",
+        "bookedResidentialUnits": [
+          {
+            "type": "economy",
+            "capacity": 2
+          }
+        ]
+      },
+      "response": {
+        "foglalasEsemenyResponse": []
+      },
+      "createdAt": "2024-03-26T12:53:12+00:00",
+      "updatedAt": "2024-03-26T12:53:20+00:00"
+    }
+    ```
+    [//]: # (@formatter:on)
+  </Tabs.Tab>
+  <Tabs.Tab>
+    [//]: # (@formatter:off)
+    ```json copy
+    {
+      "message": "Unauthenticated."
+    }
+    ```
+    [//]: # (@formatter:on)
+  </Tabs.Tab>
+  <Tabs.Tab>
+    [//]: # (@formatter:off)
+    ```json copy
+    {
+      "message": "Unauthorized."
+    }
+    ```
+    [//]: # (@formatter:on)
+  </Tabs.Tab>
+</Tabs>

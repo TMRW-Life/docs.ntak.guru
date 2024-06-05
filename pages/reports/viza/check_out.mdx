@@ -1,0 +1,157 @@
+import {Tabs, Callout} from 'nextra/components'
+import Protocol from "../../../components/protocol";
+
+# NTAK Check-out event
+
+On this page, we will explore the process of programmatically constructing the VIZA check-out report.
+We will delve into the steps and techniques required to build the report dynamically through code.
+
+## Request
+
+<Protocol method="POST" path="/v1/accommodations/{accommodation}/reports/viza/check_out" />
+
+<Tabs items={['cURL', 'PHP']}>
+  <Tabs.Tab>
+    [//]: # (@formatter:off)
+    ```bash copy
+    curl -X POST https://api.ntak.guru/v1/accommodations/99845d23-7ffb-4267-85ef-c8d4ac70e46a/reports/viza/check_out \
+      -H "Authorization: Bearer {token}" \
+      -H "Accept: application/json" \
+      -H "Content-Type: application/json" \
+      -d '{"occurredAt":"1986-10-07 13:01:29","guests":[{"id":"c5a366f4-a667-3e83-b691-9074430c20dd","departure":"1984-02-17 07:30:40"}]}'
+    ```
+    [//]: # (@formatter:on)
+  </Tabs.Tab>
+  <Tabs.Tab>
+    [//]: # (@formatter:off)
+    ```php copy
+    use TmrwLife\NtakGuru\Entities\Viza\CheckOut;
+    use TmrwLife\NtakGuru\Services\Reporting\Viza;
+
+    $gateway = Viza::setup([
+      'accessToken' => {token},
+      'isProduction' => false, // default: false
+    ]);
+
+    $checkOut = (new CheckIn())
+      ->setOccurredAt('2016-02-20 23:40:49')
+      ->addGuest(
+        guestNumber: "aa44181d-de4d-3d75-95e2-229b5c8ed753",
+        departure: "2000-03-12 10:02:11",
+      );
+
+    $response = $gateway->checkOut(
+      accommodation: '99845d23-7ffb-4267-85ef-c8d4ac70e46a',
+      entity: $checkOut
+    );
+    ```
+    [//]: # (@formatter:on)
+  </Tabs.Tab>
+</Tabs>
+
+### URL Parameters
+
+| Name            | Description            |
+|:----------------|:-----------------------|
+| `accommodation` | The accommodation `id` |
+
+### Request body
+
+#### `occurredAt`
+
+Date of the event.
+
+| Type     | Format            | Required |
+|:---------|:------------------|:--------:|
+| `string` | `Y-m-d H:i:s` UTC |   Yes    |
+
+#### `guests`
+
+The guests who check in to the accommodation. Minimum 1 guest.
+
+| Type       | Required |
+|:-----------|:--------:|
+| `object[]` |   Yes    |
+
+#### `guests.*.id` [#guests-id]
+
+The unique identifier of the guest. \
+This ID must be the same as it was in the [check in](/reports/viza/check_in) report.
+
+| Type   | Required |
+|:-------|:--------:|
+| `uuid` |   Yes    |
+
+#### `guests.*.departure` [#guests-departure]
+
+The date and time of the departure of the guest.
+
+| Type     | Format            | Required |
+|:---------|:------------------|:--------:|
+| `string` | `Y-m-d H:i:s` UTC |   Yes    |
+
+[//]: # (@formatter:off)
+```json copy
+{
+  "occurredAt": "1986-10-07 13:01:29",
+  "guests": [
+    {
+      "id": "c5a366f4-a667-3e83-b691-9074430c20dd",
+      "departure": "1984-02-17 07:30:40"
+    }
+  ]
+}
+```
+[//]: # (@formatter:on)
+
+## Response
+
+<Tabs items={[200, 401, 403]}>
+  <Tabs.Tab>
+    [//]: # (@formatter:off)
+    ```json copy
+    {
+      "message": null,
+      "payload": {
+        "id": "f2e0ed9f-1d99-471e-ab69-e3967cb07801",
+        "messageId": "e3ce35b4-4049-494e-bab7-27c703df9c8c",
+        "service": "viza",
+        "status": "pending",
+        "type": "check_out",
+        "reason": "Report arrived from PMS",
+        "context": {
+          "occurredAt": "1986-10-07 13:01:29",
+          "guests": [
+            {
+              "id": "c5a366f4-a667-3e83-b691-9074430c20dd",
+              "departure": "1984-02-17 07:30:40"
+            }
+          ]
+        },
+        "response": null,
+        "createdAt": "2022-11-10T11:10:2700:00",
+        "updatedAt": "2022-11-10T11:10:2700:00"
+      }
+    }
+    ```
+    [//]: # (@formatter:on)
+  </Tabs.Tab>
+  <Tabs.Tab>
+    [//]: # (@formatter:off)
+    ```json copy
+    {
+      "message": "Unauthenticated."
+    }
+    ```
+    [//]: # (@formatter:on)
+  </Tabs.Tab>
+  <Tabs.Tab>
+    [//]: # (@formatter:off)
+    ```json copy
+    {
+      "message": "Unauthorized."
+    }
+    ```
+    [//]: # (@formatter:on)
+  </Tabs.Tab>
+</Tabs>

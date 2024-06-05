@@ -1,0 +1,207 @@
+import {Callout} from "nextra/components";
+
+On this page, you can access the reusable objects for NTAK reports.
+These objects are designed to be used across different reports in the NTAK system, providing consistency and reusability of data structures.
+
+## Expense
+
+### `date`
+
+| Type     | Format        | Required |
+|:---------|:--------------|:---------|
+| datetime | `Y-m-d H:i:s` | Yes      |
+
+### `amount`
+
+| Type   | Format | Required |
+|:-------|:-------|:---------|
+| number |        | Yes      |
+
+<Callout type="warning">
+  The amount must be converted to HUF currency by the PMS!
+</Callout>
+
+### `paymentOption`
+
+| Type | Format                                                    | Required |
+|:-----|:----------------------------------------------------------|:---------|
+| enum | [Payment Options](/terminology/constants#payment-options) | Yes      |
+
+### `paymentOptionSubtype`
+
+| Type | Format                                                                    | Required                                                                                                                 |
+|:-----|:--------------------------------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------|
+| enum | [Payment Option Subtypes](/terminology/constants#payment-option-subtypes) | <span className="text-red-500">Required</span> when [`paymentOption`](/terminology/constants#payment-options) is `szep`. |
+
+
+```json
+{
+  "date": "2023-04-14 14:50:23",
+  "amount": 13500,
+  "paymentOption": "szep",
+  "paymentOptionSubtype": "hospitality"
+}
+```
+
+## Load
+
+### `date`
+
+| Type     | Format        | Required |
+|:---------|:--------------|:---------|
+| datetime | `Y-m-d H:i:s` | Yes      |
+
+### `amount`
+
+| Type   | Format | Required |
+|:-------|:-------|:---------|
+| number |        | Yes      |
+
+<Callout type="warning">
+  The amount must be converted to HUF currency by the PMS!
+</Callout>
+
+### `category`
+
+| Type | Format                                                              | Required |
+|:-----|:--------------------------------------------------------------------|:---------|
+| enum | [Charge Item Category](/terminology/constants#charge-item-category) | Yes      |
+
+### `isTouristTax`
+
+| Type    | Format | Required |
+|:--------|:-------|:---------|
+| boolean |        | Yes      |
+
+### taxPercentage
+
+| Type   | Format | Required |
+|:-------|:-------|:---------|
+| number |        | Yes      |
+
+```json
+{
+  "date": "2023-04-14 14:52:04",
+  "amount": 890,
+  "category": "drink",
+  "isTouristTax": false,
+  "taxPercentage": 21
+}
+```
+
+---
+
+## Guest
+
+### `gender`
+
+| Type | Format                                  | Required |
+|:-----|:----------------------------------------|:---------|
+| enum | [Gender](/terminology/constants#gender) | Yes      |
+
+### `guestNumber`
+
+The unique identifier of the guest.
+
+| Type             | Format | Required |
+|:-----------------|:-------|:---------|
+| string or number |        | Yes      |
+
+### `touristTaxStatus`
+
+| Type | Format                                            | Required |
+|:-----|:--------------------------------------------------|:---------|
+| enum | [Tourist Tax](/terminology/constants#tourist-tax) | Yes      |
+
+### `yearOfBirth`
+
+| Type   | Format | Required |
+|:-------|:-------|:---------|
+| number | \>1900 | Yes      |
+
+### `residenceCountryCode`
+
+| Type   | Format                                                                 | Required |
+|:-------|:-----------------------------------------------------------------------|:---------|
+| string | [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) | Yes      |
+
+### `residencePostCode`
+
+| Type   | Format | Required |
+|:-------|:-------|:---------|
+| string |        | Yes      |
+
+### `nationalityCountryCode`
+
+| Type   | Format                                                                 | Required |
+|:-------|:-----------------------------------------------------------------------|:---------|
+| string | [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) | Yes      |
+
+```json
+{
+  "gender": "male",
+  "guestNumber": "00000000-0000-0000-0000-000000000000",
+  "touristTaxStatus": "obliged",
+  "yearOfBirth": 1957,
+  "residenceCountryCode": "HU",
+  "residencePostCode": "04070",
+  "nationalityCountryCode": "HU"
+}
+```
+
+---
+
+## Residential unit
+
+### `type`
+
+| Type | Format                                                                  | Required |
+|:-----|:------------------------------------------------------------------------|:---------|
+| enum | [Residential Unit Types](/terminology/constants#residential-unit-types) | Yes      |
+
+### `building`
+
+| Type             | Format | Required |
+|:-----------------|:-------|:---------|
+| string or number |        | Yes      |
+
+<Callout type="info">
+  If your PMS does not handle buildings, we recommend using the letter "a" as value.
+</Callout>
+
+### `number`
+
+| Type             | Format | Required |
+|:-----------------|:-------|:---------|
+| string or number |        | Yes      |
+
+Name of the room. For example the room number.
+
+### `trundleBedCount`
+
+| Type   | Format | Required |
+|:-------|:-------|:---------|
+| number | \>=0   | Yes      |
+
+### `singleBedCount`
+
+| Type   | Format | Required |
+|:-------|:-------|:---------|
+| number | \>=0   | Yes      |
+
+### `doubleBedCount`
+
+| Type   | Format | Required |
+|:-------|:-------|:---------|
+| number | \>=0   | Yes      |
+
+```json
+{
+  "type": "standard",
+  "building": "a",
+  "number": "402",
+  "trundleBedCount": 0,
+  "singleBedCount": 0,
+  "doubleBedCount": 1
+}
+```

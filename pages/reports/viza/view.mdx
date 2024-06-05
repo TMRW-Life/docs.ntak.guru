@@ -1,0 +1,145 @@
+import {Tabs, Callout} from 'nextra/components'
+import Protocol from "../../../components/protocol";
+
+# View NTAK report
+
+This endpoint allows you to show an Viza report by providing the accommodation `id` and `reportId`.
+
+## Request
+
+<Protocol method="GET" path="/v1/accommodations/{accommodation}/reports/viza/{report}" />
+
+<Tabs items={['cURL', 'PHP']}>
+  <Tabs.Tab>
+    [//]: # (@formatter:off)
+    ```bash copy
+    curl -G https://api.ntak.guru/v1/accommodations/99845d23-7ffb-4267-85ef-c8d4ac70e46a/reports/viza/9bec5992-f822-4a7a-8536-1be67555e626 \
+      -H "Accept: application/json" \
+      -H "Authorization: Bearer {token}"
+    ```
+    [//]: # (@formatter:on)
+  </Tabs.Tab>
+  <Tabs.Tab>
+    [//]: # (@formatter:off)
+    ```php copy
+    use TmrwLife\NtakGuru\Services\Accommodation;
+    use TmrwLife\NtakGuru\Services\Reporting\Viza;
+
+    $gateway = Ntak::setup([
+      'accessToken' => {token},
+      'isProduction' => false, // default: false
+    ]);
+
+    $response = $gateway->index(
+      accommodation: '99845d23-7ffb-4267-85ef-c8d4ac70e46a',
+      report: '9bec5992-f822-4a7a-8536-1be67555e626'
+    );
+    ```
+    [//]: # (@formatter:on)
+  </Tabs.Tab>
+</Tabs>
+
+### URL Parameters
+
+| Name            | Description            |
+|:----------------|:-----------------------|
+| `accommodation` | The accommodation `id` |
+| `report`        | The report `id`        |
+
+## Response
+
+<Tabs items={[200, 401, 403, 404]}>
+  <Tabs.Tab>
+    <Callout type="info" emoji="ℹ️">
+      Read more about the report object on [this page](/reports).
+    </Callout>
+    [//]: # (@formatter:off)
+    ```json copy
+    {
+      "payload": {
+        "id": "9bec5992-f822-4a7a-8536-1be67555e626",
+        "messageId": "9bec5992-ff5b-4dde-a0ac-04803d24b608",
+        "service": "ntak",
+        "status": "success",
+        "reason": "Successful report",
+        "type": "check_in",
+        "context": {
+          "occurredAt": "1996-02-20 23:40:49",
+          "guests": [
+            {
+              "id": "aa44181d-de4d-3d75-95e2-229b5c8ed753",
+              "arrival": "2000-03-06 10:02:11",
+              "departure": "1980-01-03",
+              "manual": {
+                "firstName": "Florian",
+                "lastName": "Price",
+                "birthFirstName": "Mylene",
+                "birthLastName": "Trantow",
+                "dateOfBirth": "1972-01-01",
+                "placeOfBirth": "New Leilaniburgh",
+                "motherFirstName": "Vicenta",
+                "motherLastName": "Lesch",
+                "nationality": "LV",
+                "gender": "male",
+                "documentType": "driving_license",
+                "documentNumber": "9441083532"
+              },
+              "scanned": {
+                "firstName": "Chad",
+                "lastName": "Wisoky",
+                "birthFirstName": "Kiarra",
+                "birthLastName": "Ernser",
+                "dateOfBirth": "2001-11-19",
+                "placeOfBirth": "North Reed",
+                "motherFirstName": "Lucy",
+                "motherLastName": "Simonis",
+                "nationality": "NZ",
+                "gender": "female",
+                "documentType": "other",
+                "documentNumber": "4355014418"
+              },
+              "visaNumber": "5682809016",
+              "visaDateOfEntry": "2020-11-01",
+              "visaPlaceOfEntry": "Port Hardyland"
+            }
+          ]
+        },
+        "response": {
+          "esemenyvezereltAdatkuldesResponse": []
+        },
+        "createdAt": "2024-04-29T12:36:13+00:00",
+        "updatedAt": "2024-04-29T12:36:15+00:00"
+      },
+      "message": null
+    }
+    ```
+    [//]: # (@formatter:on)
+  </Tabs.Tab>
+  <Tabs.Tab>
+    [//]: # (@formatter:off)
+    ```json copy
+    {
+      "message": "Unauthenticated."
+    }
+    ```
+    [//]: # (@formatter:on)
+  </Tabs.Tab>
+  <Tabs.Tab>
+    [//]: # (@formatter:off)
+    ```json copy
+    {
+      "message": "Unauthorized."
+    }
+    ```
+    [//]: # (@formatter:on)
+  </Tabs.Tab>
+  <Tabs.Tab>
+    [//]: # (@formatter:off)
+    ```json copy
+    {
+      "message": "Page not found."
+    }
+    ```
+    [//]: # (@formatter:on)
+  </Tabs.Tab>
+</Tabs>

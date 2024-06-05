@@ -32,8 +32,8 @@ export default function Protocol({method, path}: {method: keyof typeof MAPPINGS,
   const attrs = MAPPINGS[method]
 
   return (
-    <div className={cn("py-1 px-1 flex items-center gap-4 rounded-md mt-4 border-2", attrs.wrapper)}>
-      <span className={cn("h-full w-28 py-1 text-center rounded font-bold uppercase", attrs.method)}>{method}</span>
+    <div className={cn("py-1 px-1 flex items-center gap-4 rounded-xl mt-4 border-2", attrs.wrapper)}>
+      <span className={cn("h-full w-28 py-1 text-center rounded-lg font-bold uppercase", attrs.method)}>{method}</span>
       <span className={cn("font-semibold font-mono", attrs.path)}>{path}</span>
     </div>
   )

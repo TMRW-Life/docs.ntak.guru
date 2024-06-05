@@ -3,7 +3,7 @@ import Protocol from "../../components/protocol";
 
 # View an accommodation
 
-This endpoint allows you to retrieve an accommodation by providing the accommodation `id` or `slug`.
+This endpoint allows you to retrieve an accommodation by providing the accommodation `id`.
 
 ## Request
 
@@ -13,7 +13,7 @@ This endpoint allows you to retrieve an accommodation by providing the accommoda
   <Tabs.Tab>
     [//]: # (@formatter:off)
     ```bash copy
-    curl -G https://api.sandbox.ntak.guru/v1/accommodations/rqdsw \
+    curl -G https://api.ntak.guru/v1/accommodations/99845d23-7ffb-4267-85ef-c8d4ac70e46a \
       -H "Accept: application/json" \
       -H "Authorization: Bearer {token}"
     ```
@@ -29,7 +29,7 @@ This endpoint allows you to retrieve an accommodation by providing the accommoda
       'isProduction' => false, // default: false
     ]);
 
-    $response = $gateway->show('rqdsw');
+    $response = $gateway->show('99845d23-7ffb-4267-85ef-c8d4ac70e46a');
     ```
     [//]: # (@formatter:on)
   </Tabs.Tab>
@@ -37,16 +37,16 @@ This endpoint allows you to retrieve an accommodation by providing the accommoda
 
 ### URL Parameters
 
-| Name            | Description                      |
-|-----------------|----------------------------------|
-| `accommodation` | The accommodation `id` or `slug` |
+| Name            | Description            |
+|:----------------|:-----------------------|
+| `accommodation` | The accommodation `id` |
 
 ## Response
 
 <Tabs items={[200, 401, 403, 404]}>
   <Tabs.Tab>
     <Callout type="info" emoji="ℹ️">
-      Read more about the accommodation object in the [Terminology](/terminology/accommodation).
+      Read more about the accommodation object on [this page](/accommodations).
     </Callout>
     [//]: # (@formatter:off)
     ```json copy

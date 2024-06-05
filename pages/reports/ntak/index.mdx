@@ -1,0 +1,121 @@
+import {Tabs, Callout} from 'nextra/components'
+import Protocol from "../../../components/protocol";
+
+# List NTAK reports
+
+This endpoint allows you to list all NTAK reports by providing the accommodation `id`.
+
+## Request
+
+<Protocol method="GET" path="/v1/accommodations/{accommodation}/reports/ntak" />
+
+<Tabs items={['cURL', 'PHP']}>
+  <Tabs.Tab>
+    [//]: # (@formatter:off)
+    ```bash copy
+    curl -G https://api.ntak.guru/v1/accommodations/99845d23-7ffb-4267-85ef-c8d4ac70e46a/reports/ntak \
+      -H "Accept: application/json" \
+      -H "Authorization: Bearer {token}"
+    ```
+    [//]: # (@formatter:on)
+  </Tabs.Tab>
+  <Tabs.Tab>
+    [//]: # (@formatter:off)
+    ```php copy
+    use TmrwLife\NtakGuru\Services\Accommodation;
+    use TmrwLife\NtakGuru\Services\Reporting\Ntak;
+
+    $gateway = Ntak::setup([
+      'accessToken' => {token},
+      'isProduction' => false, // default: false
+    ]);
+
+    $response = $gateway->index(
+      accommodation: '99845d23-7ffb-4267-85ef-c8d4ac70e46a',
+      page: 1,
+      perPage: 25
+    );
+    ```
+    [//]: # (@formatter:on)
+  </Tabs.Tab>
+</Tabs>
+
+### URL Parameters
+
+| Name            | Description            |
+|:----------------|:-----------------------|
+| `accommodation` | The accommodation `id` |
+
+### URL Search Parameters
+
+| Parameter | Description                                                                            |
+|:----------|:---------------------------------------------------------------------------------------|
+| `page`    | The page number to retrieve.                                                           |
+| `perPage` | The number of items per page. Default 25                                               |
+| `status`  | Comma separated filter. E.g.: `?status=success%2Cerror` ([Values](/reports#status))    |
+| `type`    | Comma separated filter. E.g.: `?type=reservation%2Ccheck_in` ([Values](/reports#type)) |
+
+## Response
+
+<Tabs items={[200, 401, 403]}>
+  <Tabs.Tab>
+    <Callout type="info" emoji="ℹ️">
+      Read more about the report object on [this page](/reports).
+    </Callout>
+    [//]: # (@formatter:off)
+    ```json copy
+    {
+      "payload": [
+        {
+          "id": "9bec5992-f822-4a7a-8536-1be67555e626",
+          "messageId": null,
+          "service": "ntak",
+          "status": "success",
+          "reason": "Successful report",
+          "type": "check_in",
+          "context": null,
+          "response": null,
+          "createdAt": "2024-04-29T12:36:13+00:00",
+          "updatedAt": "2024-04-29T12:36:15+00:00"
+        },
+      ],
+      "links": {
+        "first": "https:\/\/api.ntak.guru\/v1\/accommodations\/99845d23-7ffb-4267-85ef-c8d4ac70e46a\/reports\/ntak?page=1",
+        "last": "https:\/\/api.ntak.guru\/v1\/accommodations\/99845d23-7ffb-4267-85ef-c8d4ac70e46a\/reports\/ntak?page=45",
+        "prev": null,
+        "next": "https:\/\/api.ntak.guru\/v1\/accommodations\/99845d23-7ffb-4267-85ef-c8d4ac70e46a\/reports\/ntak?page=2"
+      },
+      "meta": {
+        "current_page": 1,
+        "from": 1,
+        "last_page": 45,
+        "links": [],
+        "path": "https:\/\/api.ntak.guru\/v1\/accommodations\/99845d23-7ffb-4267-85ef-c8d4ac70e46a\/reports\/ntak",
+        "per_page": 25,
+        "to": 25,
+        "total": 1125
+      },
+      "message": null
+    }
+    ```
+    [//]: # (@formatter:on)
+  </Tabs.Tab>
+  <Tabs.Tab>
+    [//]: # (@formatter:off)
+    ```json copy
+    {
+      "message": "Unauthenticated."
+    }
+    ```
+    [//]: # (@formatter:on)
+  </Tabs.Tab>
+  <Tabs.Tab>
+    [//]: # (@formatter:off)
+    ```json copy
+    {
+      "message": "Unauthorized."
+    }
+    ```
+    [//]: # (@formatter:on)
+  </Tabs.Tab>
+</Tabs>

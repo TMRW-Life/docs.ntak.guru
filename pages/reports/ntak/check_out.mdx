@@ -1,0 +1,196 @@
+import {Tabs} from 'nextra/components'
+import Protocol from "../../../components/protocol";
+
+# NTAK Check-out event
+
+On this page, we will explore the process of programmatically constructing the NTAK check-out report.
+We will delve into the steps and techniques required to build the report dynamically through code.
+
+## Request
+
+<Protocol method="POST" path="/v1/accommodations/{accommodation}/reports/ntak/check_out" />
+
+<Tabs items={['cURL', 'PHP']}>
+  <Tabs.Tab>
+    [//]: # (@formatter:off)
+    ```bash copy
+    curl -X POST https://api.ntak.guru/v1/accommodations/99845d23-7ffb-4267-85ef-c8d4ac70e46a/reports/ntak/check_out \
+      -H "Authorization: Bearer {token}" \
+      -H "Accept: application/json" \
+      -H "Content-Type: application/json" \
+      -d '{"guests":[{"gender":"male","guestNumber":"00000000-0000-0000-0000-000000000000","touristTaxStatus":"obliged","yearOfBirth":1957,"residenceCountryCode":"HU","residencePostCode":"04070","nationalityCountryCode":"HU"}],"abandonedResidentialUnit":{"type":"standard","building":"a","number":"402","trundleBedCount":0,"singleBedCount":0,"doubleBedCount":1},"occurredAt":"2022-06-12 17:35:27","reservationNumber":10000}'
+    ```
+    [//]: # (@formatter:on)
+  </Tabs.Tab>
+  <Tabs.Tab>
+    [//]: # (@formatter:off)
+    ```php copy
+    use TmrwLife\NtakGuru\Entities\Ntak\CheckOut;
+    use TmrwLife\NtakGuru\Entities\Ntak\Guest;
+    use TmrwLife\NtakGuru\Entities\Ntak\ResidentialUnit;
+    use TmrwLife\NtakGuru\Enums\Gender;
+    use TmrwLife\NtakGuru\Enums\ResidentialUnitType;
+    use TmrwLife\NtakGuru\Enums\TouristTax;
+    use TmrwLife\NtakGuru\Services\Reporting\Ntak;
+
+    $gateway = Ntak::setup([
+      'accessToken' => {token},
+      'isProduction' => false, // default: false
+    ]);
+
+    $guest = (new Guest())
+      ->setGender(Gender::MALE)
+      ->setGuestNumber('00000000-0000-0000-0000-000000000000')
+      ->setYearOfBirth(1957)
+      ->setTouristTaxStatus(TouristTax::OBLIGED)
+      ->setNationalityCountryCode('HU')
+      ->setResidencePostCode('04070')
+      ->setResidenceCountryCode('HU');
+
+    $unit = (new ResidentialUnit())
+      ->setType(ResidentialUnitType::APARTMENT)
+      ->setBuilding('a')
+      ->setNumber("402")
+      ->setSingleBedCount(0)
+      ->setDoubleBedCount(0)
+      ->setTrundleBedCount(1);
+
+    $checkOut = (new CheckOut())
+      ->setReservationNumber(10000)
+      ->setOccurredAt('2022-06-12 17:35:27')
+      ->addGuest($guest)
+      ->setAbandonedResidentialUnit($unit);
+
+    $response = $gateway->checkIn(
+      accommodation: '99845d23-7ffb-4267-85ef-c8d4ac70e46a',
+      entity: $checkOut
+    );
+    ```
+    [//]: # (@formatter:on)
+  </Tabs.Tab>
+</Tabs>
+
+### URL Parameters
+
+| Name            | Description            |
+|:----------------|:-----------------------|
+| `accommodation` | The accommodation `id` |
+
+### Request body
+
+#### `guests`
+
+| Type                                       | Description                                   | Required |
+|:-------------------------------------------|:----------------------------------------------|:--------:|
+| [Guest](/terminology/ntak-objects#guest)[] | Array of guests. Minimum 1 guest is required. |   Yes    |
+
+#### `abandonedResidentialUnit`
+
+| Type                                                           | Description                                   | Required |
+|:---------------------------------------------------------------|:----------------------------------------------|:--------:|
+| [Residential unit](/terminology/ntak-objects#residential-unit) | The abandoned residential unit by the guests. |   Yes    |
+
+#### `occurredAt`
+
+| Type     | Format        | Description        | Required |
+|:---------|:--------------|:-------------------|:--------:|
+| `string` | `Y-m-d H:i:s` | Date of the event. |   Yes    |
+
+#### `reservationNumber`
+
+| Type                 | Description                               | Required |
+|:---------------------|:------------------------------------------|:--------:|
+| `string` \| `number` | The unique identifier of the reservation. |   Yes    |
+
+[//]: # (@formatter:off)
+```json copy
+{
+  "guests": [
+    {
+      "gender": "male",
+      "guestNumber": "00000000-0000-0000-0000-000000000000",
+      "touristTaxStatus": "obliged",
+      "yearOfBirth": 1957,
+      "residenceCountryCode": "HU",
+      "residencePostCode": "04070",
+      "nationalityCountryCode": "HU"
+    }
+  ],
+  "abandonedResidentialUnit": {
+    "type": "standard",
+    "building": "a",
+    "number": "402",
+    "trundleBedCount": 0,
+    "singleBedCount": 0,
+    "doubleBedCount": 1
+  },
+  "occurredAt": "2022-06-12 17:35:27",
+  "reservationNumber": 10000
+}
+```
+[//]: # (@formatter:on)
+
+## Response
+
+<Tabs items={[200, 401, 403]}>
+  <Tabs.Tab>
+    [//]: # (@formatter:off)
+    ```json copy
+    {
+      "id": "00000000-0000-0000-0000-000000000000",
+      "messageId": "00000000-0000-0000-0000-000000000000",
+      "service": "ntak",
+      "status": "peding",
+      "reason": "Report arrived from PMS",
+      "type": "check_out",
+      "context": {
+        "guests": [
+          {
+            "gender": "male",
+            "guestNumber": "00000000-0000-0000-0000-000000000000",
+            "touristTaxStatus": "obliged",
+            "yearOfBirth": 1957,
+            "residenceCountryCode": "HU",
+            "residencePostCode": "04070",
+            "nationalityCountryCode": "HU"
+          }
+        ],
+        "abandonedResidentialUnit": {
+          "type": "standard",
+          "building": "a",
+          "number": "402",
+          "trundleBedCount": 0,
+          "singleBedCount": 0,
+          "doubleBedCount": 1
+        },
+        "occurredAt": "2022-06-12 17:35:27",
+        "reservationNumber": 10000
+      },
+      "response": {
+        "foglalasEsemenyResponse": []
+      },
+      "createdAt": "2024-03-26T12:53:12+00:00",
+      "updatedAt": "2024-03-26T12:53:20+00:00"
+    }
+    ```
+    [//]: # (@formatter:on)
+  </Tabs.Tab>
+  <Tabs.Tab>
+    [//]: # (@formatter:off)
+    ```json copy
+    {
+      "message": "Unauthenticated."
+    }
+    ```
+    [//]: # (@formatter:on)
+  </Tabs.Tab>
+  <Tabs.Tab>
+    [//]: # (@formatter:off)
+    ```json copy
+    {
+      "message": "Unauthorized."
+    }
+    ```
+    [//]: # (@formatter:on)
+  </Tabs.Tab>
+</Tabs>

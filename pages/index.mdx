@@ -1,3 +1,63 @@
-# Welcome to Nextra
+import { Callout, Tabs, Tab } from 'nextra-theme-docs'
 
-Hello, world!
+# Get Started
+
+This guide will get you all set up and ready to use the NTAK.guru API.
+We'll cover how to get started using one of our API clients and how to make your first API request.
+We'll also look at where to go next to find all the information you need to take full advantage of our powerful REST API.
+
+<Callout type="info" emoji="💡">
+  Before you can make requests to the NTAK.guru API, you will need to grab your API key from your dashboard. You find it under [Settings » API](https://app.ntak.guru/settings/api).
+</Callout>
+
+## Choose your client
+
+Before making your first API request, you need to pick which API client you will use.
+In addition to good ol' cURL HTTP requests, NTAK.guru offers clients PHP.
+In the following example, you can see how to install each client.
+
+<Tabs items={['cURL', 'PHP']}>
+  <Tab>
+    ```sh copy
+    # cURL is most likely already installed on your machine
+    curl --version
+    ```
+  </Tab>
+  <Tab>
+    ```sh copy
+    # Install the NTAK.guru PHP SDK
+    composer require tmrw-life/ntak-guru-php-sdk
+    ```
+  </Tab>
+</Tabs>
+
+## Make your first request
+
+After picking your preferred client, you are ready to make your first call to the NTAK.guru API.
+Below, you can see how to send a GET request to the NTAK reports endpoint to get a list of all your NTAK reports.
+In the cURL example, results are limited to 25 report, the default page length for each client.
+
+<Tabs items={['cURL', 'PHP']}>
+  <Tab>
+    ```sh copy
+    curl https://api.ntak.guru/v1/accommodations/00000000-0000-0000-0000-000000000000/reports/ntak \
+      -H "Authorization: Bearer {token}" \
+      -H "Accept: application/json" \
+      -d perPage=25
+    ```
+  </Tab>
+  <Tab>
+    ```php copy
+    use TmrwLife\NtakGuru\Services\Reporting\Ntak;
+
+    $ntak = Ntak::setup([
+      'accessToken' => {token},
+      'isProduction' => false, // default: false
+    ]);
+
+    $ntak->index('00000000-0000-0000-0000-000000000000', [
+      'perPage' => 25,
+    ]);
+    ```
+  </Tab>
+</Tabs>

@@ -1,7 +1,8 @@
 {
-  "index": "List",
+  "list": "",
   "view": "",
-  "update": "",
+  "update-provider": "",
+  "update-urls": "",
   "activate": "",
   "deactivate": ""
 }

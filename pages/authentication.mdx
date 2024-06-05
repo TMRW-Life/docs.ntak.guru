@@ -6,7 +6,7 @@ You'll need to authenticate your requests to access any of the endpoints in the 
 
 ## OAuth2 with bearer token
 
-The recommended way to authenticate with the NTAK.guru API is by using OAuth2. When establishing a connection using OAuth2, you will need your access token — you will find it in the [NTAK.guru dashboard](https://app.ntak.guru/settings) under API settings. Here's how to add the token to the request header using cURL:
+The recommended way to authenticate with the NTAK.guru API is by using OAuth2. When establishing a connection using OAuth2, you will need your access token — you will find it in the [NTAK.guru dashboard](https://app.ntak.guru/settings/api) under API settings. Here's how to add the token to the request header using cURL:
 
 [//]: # (@formatter:off)
 ```bash filename="Example request with bearer token"
@@ -20,4 +20,4 @@ Always keep your token safe and revoke it if you suspect it has been compromised
 </Callout>
 
 ## Using an SDK
-If you use one of our official SDKs, you won't have to worry about any of the above — fetch your access token from the [NTAK.guru dashboard](https://app.ntak.guru/settings), and the client library will take care of the rest. All the client libraries use OAuth2 behind the scenes.
+If you use one of our official SDKs, you won't have to worry about any of the above — fetch your access token from the [NTAK.guru dashboard](https://app.ntak.guru/settings/api), and the client library will take care of the rest. All the client libraries use OAuth2 behind the scenes.

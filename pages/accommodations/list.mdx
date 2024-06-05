@@ -13,7 +13,7 @@ This endpoint allows you to retrieve a list of all your accommodations.
   <Tabs.Tab>
     [//]: # (@formatter:off)
     ```bash copy
-    curl -G https://api.sandbox.ntak.guru/v1/accommodations \
+    curl -G https://api.ntak.guru/v1/accommodations \
       -H "Accept: application/json" \
       -H "Authorization: Bearer {token}"
     ```
@@ -38,7 +38,7 @@ This endpoint allows you to retrieve a list of all your accommodations.
 ### URL Search Parameters
 
 | Parameter | Description                              |
-|-----------|------------------------------------------|
+|:----------|:-----------------------------------------|
 | `page`    | The page number to retrieve.             |
 | `perPage` | The number of items per page. Default 25 |
 | `q`       | The search query.                        |
@@ -48,7 +48,7 @@ This endpoint allows you to retrieve a list of all your accommodations.
 <Tabs items={[200, 401, 403]}>
   <Tabs.Tab>
     <Callout type="info" emoji="ℹ️">
-      Read more about the accommodation object in the [Terminology](/terminology/accommodation).
+      Read more about the accommodation object on [this page](/accommodations).
     </Callout>
     [//]: # (@formatter:off)
     ```json copy
