@@ -1,21 +1,45 @@
-import {Callout} from "nextra/components"
+import {Callout, Steps} from "nextra/components"
 import Protocol from "../../../components/protocol"
+import Image from 'next/image'
 
 # NTAK Daily close
 
 On this page, we will explore the process of programmatically constructing the NTAK daily close report.
 We will delve into the steps and techniques required to build the report dynamically through code.
 
-The NTAK daily close report differs from other reports in its generation process. It involves two steps:
+The NTAK daily close report differs from other reports in its generation process. It involves multiple steps:
 
- 1. Scheduling Request: Initially, NTAK.guru sends a scheduling request to the government's NTAK system to retrieve the specific days for reporting.
- 2. Compilation of Concurrent Requests: Subsequently, NTAK.guru compiles concurrent requests based on the response received from the scheduler. The number of concurrent requests can range from 1 to a maximum of 60.
+<div className="relative w-full aspect-[2.61/1] mb-8">
+  <Image src="/how-daily-close-works.svg" alt="How Daily close works" fill />
+</div>
 
-<Protocol method="GET" path="{accommodation-daily-close-url}?date=2023-09-20" />
+<Steps>
+  ### NTAK.guru initiates a request to the government's NTAK system to retrieve the specific days for reporting.
+  ### The government's NTAK system returns a list of dates for reporting.
+    - If the list is empty, NTAK.guru will stop the entire process with success.
+    - The list can contain up to 60 dates.
+    - Dates can also be in the distant past
+  ### NTAK.guru compiles concurrent requests based on the response received from the scheduler.
+    - 3/1: 2024-09-01
+    - 3/2: 2024-09-02
+    - 3/x: 2024-09-05
+
+    The number of concurrent requests can range from 1 to a maximum of 60 (the same amount as the list returned by the government's NTAK system).
+
+    <Callout type="info">
+      Concurrent requests are reducing the chance of errors in the reporting process.
+
+      For example, if `3/2` responds with an error, `3/1` and `3/x` still could be sent to the government's NTAK system.
+    </Callout>
+
+  ### After receiving the all the responses from the PMS, NTAK.guru will compile the response and send it to the government's NTAK system.
+</Steps>
 
 ## Request
 
-### URL Search Parameters
+<Protocol method="POST" path="{accommodation-daily-close-url}" />
+
+### Request Body
 
 | Parameter | Description                                                                        |
 |:----------|:-----------------------------------------------------------------------------------|
