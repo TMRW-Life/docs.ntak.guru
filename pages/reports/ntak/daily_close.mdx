@@ -35,6 +35,13 @@ The NTAK daily close report differs from other reports in its generation process
   ### After receiving the all the responses from the PMS, NTAK.guru will compile the response and send it to the government's NTAK system.
 </Steps>
 
+<Callout type="info">
+  What if the PMS has multiple accommodations connected to NTAK.guru?
+
+  To avoid potential request spamming, (A.K.A. DDoS attacks), we implemented rate limiting. Currently, it is set to 1 accommodation per 15 seconds. \
+  There is a chance that we will decrease the rate limit in the future, but it will never be lower than 1 accommodation per 5 seconds.
+</Callout>
+
 ## Request
 
 <Protocol method="POST" path="{accommodation-daily-close-url}" />
