@@ -1,0 +1,66 @@
+import {Tabs,Callout} from 'nextra/components'
+import Protocol from "../../../components/protocol";
+
+# Retry NTAK reports
+
+This endpoint allows you to retry NTAK reports by providing the report `id`.
+
+## Request
+
+<Protocol method="PUT" path="/v1/accommodations/{accommodation}/reports/viza/{id}" />
+
+<Tabs items={['cURL', 'PHP']}>
+  <Tabs.Tab>
+    [//]: # (@formatter:off)
+    ```bash copy
+    curl -X PUT https://api.ntak.guru/v1/accommodations/99845d23-7ffb-4267-85ef-c8d4ac70e46a/reports/viza/57eb2317-b7b4-4259-aec2-bee4650e9079 \
+      -H "Authorization: Bearer {token}" \
+      -H "Accept: application/json" \
+      -H "Content-Type: application/json" \
+      -d '{content-of-report}'
+    ```
+    [//]: # (@formatter:on)
+  </Tabs.Tab>
+  <Tabs.Tab>
+    [//]: # (@formatter:off)
+    ```php copy
+    use TmrwLife\NtakGuru\Entities\Viza\CheckIn;
+    use TmrwLife\NtakGuru\Entities\Viza\CheckOut;
+    use TmrwLife\NtakGuru\Services\Reporting\Viza;
+
+    $gateway = Viza::setup([
+      'accessToken' => {token},
+      'isProduction' => false, // default: false
+    ]);
+
+    $report = (new CheckIn());
+    $report = (new CheckOut());
+
+    $response = $gateway->retry(
+      accommodation: '99845d23-7ffb-4267-85ef-c8d4ac70e46a',
+      report: '57eb2317-b7b4-4259-aec2-bee4650e9079',
+      entity: $report
+    );
+    ```
+    [//]: # (@formatter:on)
+  </Tabs.Tab>
+</Tabs>
+
+### URL Parameters
+
+| Name            | Description            |
+|:----------------|:-----------------------|
+| `accommodation` | The accommodation `id` |
+| `id`            | The report `id`        |
+
+### Request body
+
+The structure of the request body is the same as the original report:
+ - [Check-in](/reports/viza/check_in#request-body)
+ - [Check-out](/reports/viza/check_out#request-body)
+
+### Response
+
+The response is the same as the original report:
+ - [Check-in](/reports/viza/check_in#response)
+ - [Check-out](/reports/viza/check_out#response)

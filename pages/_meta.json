@@ -9,7 +9,8 @@
   "authentication": "",
   "pagination": "",
   "callback": "",
-  "terminology": "Terminology",
+  "ntak-objects": "NTAK objects",
+  "constants": "",
   "-- Endpoints": {
     "type": "separator",
     "title": "Endpoints"

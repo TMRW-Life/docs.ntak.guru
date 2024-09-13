@@ -7,6 +7,20 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  async redirects() {
+    return [
+      {
+        source: '/terminology/ntak-objects',
+        destination: '/ntak-objects',
+        permanent: true,
+      },
+      {
+        source: '/terminology/constants',
+        destination: '/constants',
+        permanent: true,
+      },
+    ]
+  },
 }
 
 const withNextra = require('nextra')({

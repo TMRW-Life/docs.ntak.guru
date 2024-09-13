@@ -112,9 +112,9 @@ Send this report, when a reservation is created in your PMS, or when a reservati
 
 #### `marketSegment`
 
-| Type                                                     | Description                        | Required |
-|:---------------------------------------------------------|:-----------------------------------|:--------:|
-| [Market segment](/terminology/constants#market-segments) | Market segment of the reservation. |   Yes    |
+| Type                                         | Description                        | Required |
+|:---------------------------------------------|:-----------------------------------|:--------:|
+| [Market segment](/constants#market-segments) | Market segment of the reservation. |   Yes    |
 
 #### `reservedAt`
 
@@ -130,9 +130,9 @@ Send this report, when a reservation is created in your PMS, or when a reservati
 
 #### `salesChannel`
 
-| Type                                                   | Description                       | Required |
-|:-------------------------------------------------------|:----------------------------------|:--------:|
-| [Sales channel](/terminology/constants#sales-channels) | Sales channel of the reservation. |   Yes    |
+| Type                                       | Description                       | Required |
+|:-------------------------------------------|:----------------------------------|:--------:|
+| [Sales channel](/constants#sales-channels) | Sales channel of the reservation. |   Yes    |
 
 #### `grossAmount`
 
@@ -146,9 +146,13 @@ Send this report, when a reservation is created in your PMS, or when a reservati
 
 #### `nationality`
 
-| Type     | Description                                                                                            | Required |
-|:---------|:-------------------------------------------------------------------------------------------------------|:--------:|
-| `string` | The [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code of the booking person. |   Yes    |
+| Type     | Description                                                                                                       | Required |
+|:---------|:------------------------------------------------------------------------------------------------------------------|:--------:|
+| `string` | The [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code of the booking person, or `other` |   Yes    |
+
+<Callout type="info">
+  If the country code does not included in the [official list](/constants#ntak-countries), NTAK.guru will transform it to `other`.
+</Callout>
 
 #### `bookedResidentialUnits`
 
@@ -158,9 +162,9 @@ Send this report, when a reservation is created in your PMS, or when a reservati
 
 * `bookedResidentialUnits.*.type`
 
-    | Type                                                                   | Description                   | Required |
-    |:-----------------------------------------------------------------------|:------------------------------|:--------:|
-    | [Residential unit type](/terminology/constants#residential-unit-types) | Type of the residential unit. |   Yes    |
+    | Type                                                       | Description                   | Required |
+    |:-----------------------------------------------------------|:------------------------------|:--------:|
+    | [Residential unit type](/constants#residential-unit-types) | Type of the residential unit. |   Yes    |
 
 * `bookedResidentialUnits.*.capacity`
 

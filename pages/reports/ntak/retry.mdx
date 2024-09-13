@@ -1,0 +1,78 @@
+import {Tabs,Callout} from 'nextra/components'
+import Protocol from "../../../components/protocol";
+
+# Retry NTAK reports
+
+This endpoint allows you to retry NTAK reports by providing the report `id`.
+
+## Request
+
+<Protocol method="PUT" path="/v1/accommodations/{accommodation}/reports/ntak/{id}" />
+
+<Tabs items={['cURL', 'PHP']}>
+  <Tabs.Tab>
+    [//]: # (@formatter:off)
+    ```bash copy
+    curl -X PUT https://api.ntak.guru/v1/accommodations/99845d23-7ffb-4267-85ef-c8d4ac70e46a/reports/ntak/629d12e9-c145-4edb-99c7-b694e51f7420 \
+      -H "Authorization: Bearer {token}" \
+      -H "Accept: application/json" \
+      -H "Content-Type: application/json" \
+      -d '{content-of-report}'
+    ```
+    [//]: # (@formatter:on)
+  </Tabs.Tab>
+  <Tabs.Tab>
+    [//]: # (@formatter:off)
+    ```php copy
+    use TmrwLife\NtakGuru\Entities\Ntak\CheckIn;
+    use TmrwLife\NtakGuru\Entities\Ntak\CheckOut;
+    use TmrwLife\NtakGuru\Entities\Ntak\Reservation;
+    use TmrwLife\NtakGuru\Entities\Ntak\RoomChange;
+    use TmrwLife\NtakGuru\Services\Reporting\Ntak;
+
+    $gateway = Ntak::setup([
+      'accessToken' => {token},
+      'isProduction' => false, // default: false
+    ]);
+
+    $report = (new CheckIn());
+    $report = (new CheckOut());
+    $report = (new Reservation());
+    $report = (new RoomChange());
+
+    $response = $gateway->retry(
+      accommodation: '99845d23-7ffb-4267-85ef-c8d4ac70e46a',
+      report: '629d12e9-c145-4edb-99c7-b694e51f7420',
+      entity: $report
+    );
+    ```
+    [//]: # (@formatter:on)
+  </Tabs.Tab>
+</Tabs>
+
+### URL Parameters
+
+| Name            | Description            |
+|:----------------|:-----------------------|
+| `accommodation` | The accommodation `id` |
+| `id`            | The report `id`        |
+
+### Request body
+
+The structure of the request body is the same as the original report:
+ - [Reservation](/reports/ntak/reservation#request-body)
+ - [Check-in](/reports/ntak/check_in#request-body)
+ - [Check-out](/reports/ntak/check_out#request-body)
+ - [Room change](/reports/ntak/room_change#request-body)
+
+<Callout type="warning" emoji="⚠️">
+  `Scheduler` and `Daily close` reports are not retryable.
+</Callout>
+
+### Response
+
+The response is the same as the original report:
+ - [Reservation](/reports/ntak/reservation#response)
+ - [Check-in](/reports/ntak/check_in#response)
+ - [Check-out](/reports/ntak/check_out#response)
+ - [Room change](/reports/ntak/room_change#response)

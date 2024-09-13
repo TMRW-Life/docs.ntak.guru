@@ -14,12 +14,15 @@ The NTAK daily close report differs from other reports in its generation process
 </div>
 
 <Steps>
-  ### NTAK.guru initiates a request to the government's NTAK system to retrieve the specific days for reporting.
-  ### The government's NTAK system returns a list of dates for reporting.
+  ### Scheduler request
+  At 04:00 CET/CEST, NTAK.guru initiates a request to the government's NTAK system to retrieve the specific days for reporting.
+  ### Scheduler response
+  The government's NTAK system returns a list of dates for reporting.
     - If the list is empty, NTAK.guru will stop the entire process with success.
     - The list can contain up to 60 dates.
     - Dates can also be in the distant past
-  ### NTAK.guru compiles concurrent requests based on the response received from the scheduler.
+  ### Daily close request & response
+  NTAK.guru compiles concurrent requests based on the response received from the scheduler.
     - 3/1: 2024-09-01
     - 3/2: 2024-09-02
     - 3/x: 2024-09-05
@@ -32,7 +35,8 @@ The NTAK daily close report differs from other reports in its generation process
       For example, if `3/2` responds with an error, `3/1` and `3/x` still could be sent to the government's NTAK system.
     </Callout>
 
-  ### After receiving the all the responses from the PMS, NTAK.guru will compile the response and send it to the government's NTAK system.
+  ### Reporting to the government's NTAK system
+  After receiving the all the responses from the PMS, NTAK.guru will compile the response and send it to the government's NTAK system.
 </Steps>
 
 <Callout type="info">
@@ -146,17 +150,17 @@ Data describing the occupancy of the accommodation's room will be added to this 
 
 In this type, expenses recorded days or even weeks later after a room has been booked can be sent.
 
-| Type                                             | Required |
-|:-------------------------------------------------|:--------:|
-| [`Expense[]`](/terminology/ntak-objects#expense) | Nullable |
+| Type                                 | Required |
+|:-------------------------------------|:--------:|
+| [`Expense[]`](/ntak-objects#expense) | Nullable |
 
 ### `afterStayLoads` [#operating-after-stay-loads]
 
 In this type, loads recorded days or even weeks later after a room has been booked can be sent.
 
-| Type                                       | Required |
-|:-------------------------------------------|:--------:|
-| [`Load[]`](/terminology/ntak-objects#load) | Nullable |
+| Type                           | Required |
+|:-------------------------------|:--------:|
+| [`Load[]`](/ntak-objects#load) | Nullable |
 
 ### `checkOutDaySales` [#operating-checkout-day-sales]
 
@@ -168,25 +172,25 @@ Debits and revenues related to the residential units on the day of check-out.
 
  * #### `residentialUnit` [#operating-checkout-day-sales-residential-unit]
 
-    | Type                                                             | Required |
-    |:-----------------------------------------------------------------|:--------:|
-    | [`Residential unit`](/terminology/ntak-objects#residential-unit) |   Yes    |
+    | Type                                                 | Required |
+    |:-----------------------------------------------------|:--------:|
+    | [`Residential unit`](/ntak-objects#residential-unit) |   Yes    |
 
  * #### `salesChannel` [#operating-checkout-day-sales-sales-channel]
 
     It is necessary to categorize the accommodation unit nights by pre-defined sales channels.
 
-    | Type                                                     | Required |
-    |:---------------------------------------------------------|:--------:|
-    | [`Sales channel`](/terminology/constants#sales-channels) |   Yes    |
+    | Type                                         | Required |
+    |:---------------------------------------------|:--------:|
+    | [`Sales channel`](/constants#sales-channels) |   Yes    |
 
  * #### `marketSegment` [#operating-checkout-day-sales-market-segment]
 
     Market segment value for the overnight reservation of the residential unit.
 
-    | Type                                                       | Required |
-    |:-----------------------------------------------------------|:--------:|
-    | [`Market segment`](/terminology/constants#market-segments) |   Yes    |
+    | Type                                           | Required |
+    |:-----------------------------------------------|:--------:|
+    | [`Market segment`](/constants#market-segments) |   Yes    |
 
  * #### `reservationNumber` [#operating-checkout-day-sales-reservation-number]
 
@@ -200,17 +204,17 @@ Debits and revenues related to the residential units on the day of check-out.
 
     The expenditure is a gross item paid by the guest without VAT, the amount and type of which the NTAK system takes into account.
 
-    | Type                                           | Required |
-    |:-----------------------------------------------|:--------:|
-    | [`Expense`](/terminology/ntak-objects#expense) | Nullable |
+    | Type                               | Required |
+    |:-----------------------------------|:--------:|
+    | [`Expense`](/ntak-objects#expense) | Nullable |
 
  * #### `loads` [#operating-checkout-day-sales-loads]
 
     Gross amount with VAT rate and service category charged to the guest's account for a service.
 
-    | Type                                     | Required |
-    |:-----------------------------------------|:--------:|
-    | [`Load`](/terminology/ntak-objects#load) | Nullable |
+    | Type                         | Required |
+    |:-----------------------------|:--------:|
+    | [`Load`](/ntak-objects#load) | Nullable |
 
 ### `residentialUnitNights` [#operating-residential-unit-nights]
 
@@ -224,9 +228,9 @@ Daily consumption data broken down by residential unit.
 
     The field is used to describe the data of the guests staying in the apartment.
 
-    | Type                                         | Required |
-    |:---------------------------------------------|:--------:|
-    | [`Guest[]`](/terminology/ntak-objects#guest) |   Yes    |
+    | Type                             | Required |
+    |:---------------------------------|:--------:|
+    | [`Guest[]`](/ntak-objects#guest) |   Yes    |
 
  * #### `dayUse` [#operating-residential-unit-nights-dayuse]
 
@@ -242,25 +246,25 @@ Daily consumption data broken down by residential unit.
 
  * #### `residentialUnit` [#operating-residential-unit-nights-residential-unit]
 
-    | Type                                                             | Required |
-    |:-----------------------------------------------------------------|:--------:|
-    | [`Residential unit`](/terminology/ntak-objects#residential-unit) |   Yes    |
+    | Type                                                 | Required |
+    |:-----------------------------------------------------|:--------:|
+    | [`Residential unit`](/ntak-objects#residential-unit) |   Yes    |
 
  * #### `salesChannel` [#operating-residential-unit-nights-sales-channel]
 
     It is necessary to categorize the accommodation unit nights by pre-defined sales channels.
 
-    | Type                                                     | Required |
-    |:---------------------------------------------------------|:--------:|
-    | [`Sales channel`](/terminology/constants#sales-channels) |   Yes    |
+    | Type                                         | Required |
+    |:---------------------------------------------|:--------:|
+    | [`Sales channel`](/constants#sales-channels) |   Yes    |
 
  * #### `marketSegment` [#operating-residential-unit-nights-market-segment]
 
     Market segment value for the overnight reservation of the residential unit.
 
-    | Type                                                       | Required |
-    |:-----------------------------------------------------------|:--------:|
-    | [`Market segment`](/terminology/constants#market-segments) |   Yes    |
+    | Type                                           | Required |
+    |:-----------------------------------------------|:--------:|
+    | [`Market segment`](/constants#market-segments) |   Yes    |
 
  * #### `reservationNumber` [#operating-residential-unit-nights-reservation-number]
 
@@ -276,25 +280,25 @@ Daily consumption data broken down by residential unit.
 
     The expenditure is a gross item paid by the guest without VAT, the amount and type of which the NTAK system takes into account.
 
-    | Type                                           | Required |
-    |:-----------------------------------------------|:--------:|
-    | [`Expense`](/terminology/ntak-objects#expense) | Nullable |
+    | Type                               | Required |
+    |:-----------------------------------|:--------:|
+    | [`Expense`](/ntak-objects#expense) | Nullable |
 
  * #### `loads` [#operating-residential-unit-nights-loads]
 
     Gross amount with VAT rate and service category charged to the guest's account for a service.
 
-    | Type                                     | Required |
-    |:-----------------------------------------|:--------:|
-    | [`Load`](/terminology/ntak-objects#load) | Nullable |
+    | Type                         | Required |
+    |:-----------------------------|:--------:|
+    | [`Load`](/ntak-objects#load) | Nullable |
 
 ### `otherExpenses` [#operating-other-expenses]
 
 Data type summarizing other expenses that cannot be linked to a residential unit.
 
-| Type                                             | Required |
-|:-------------------------------------------------|:--------:|
-| [`Expense[]`](/terminology/ntak-objects#expense) | Nullable |
+| Type                                 | Required |
+|:-------------------------------------|:--------:|
+| [`Expense[]`](/ntak-objects#expense) | Nullable |
 
 ### `otherLoads` [#operating-other-loads]
 
@@ -302,17 +306,17 @@ Data type summarizing other loads that cannot be linked to a residential unit.
 
 `isTouristTax` property is ignored.
 
-| Type                                       | Required |
-|:-------------------------------------------|:--------:|
-| [`Load[]`](/terminology/ntak-objects#load) | Nullable |
+| Type                           | Required |
+|:-------------------------------|:--------:|
+| [`Load[]`](/ntak-objects#load) | Nullable |
 
 ### `outOfOrderResidentialUnits` [#operating-out-of-order-residential-units]
 
 The list of rooms of the accommodation that are not in operation on the given day.
 
-| Type                                                               | Required |
-|:-------------------------------------------------------------------|:--------:|
-| [`Residential unit[]`](/terminology/ntak-objects#residential-unit) | Nullable |
+| Type                                                   | Required |
+|:-------------------------------------------------------|:--------:|
+| [`Residential unit[]`](/ntak-objects#residential-unit) | Nullable |
 
 ```json copy
 {

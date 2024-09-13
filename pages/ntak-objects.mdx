@@ -23,15 +23,15 @@ These objects are designed to be used across different reports in the NTAK syste
 
 ### `paymentOption`
 
-| Type | Format                                                    | Required |
-|:-----|:----------------------------------------------------------|:---------|
-| enum | [Payment Options](/terminology/constants#payment-options) | Yes      |
+| Type | Format                                        | Required |
+|:-----|:----------------------------------------------|:---------|
+| enum | [Payment Options](/constants#payment-options) | Yes      |
 
 ### `paymentOptionSubtype`
 
-| Type | Format                                                                    | Required                                                                                                                 |
-|:-----|:--------------------------------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------|
-| enum | [Payment Option Subtypes](/terminology/constants#payment-option-subtypes) | <span className="text-red-500">Required</span> when [`paymentOption`](/terminology/constants#payment-options) is `szep`. |
+| Type | Format                                                        | Required                                                                                                                 |
+|:-----|:--------------------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------|
+| enum | [Payment Option Subtypes](/constants#payment-option-subtypes) | <span className="text-red-500">Required</span> when [`paymentOption`](/terminology/constants#payment-options) is `szep`. |
 
 
 ```json
@@ -63,9 +63,9 @@ These objects are designed to be used across different reports in the NTAK syste
 
 ### `category`
 
-| Type | Format                                                              | Required |
-|:-----|:--------------------------------------------------------------------|:---------|
-| enum | [Charge Item Category](/terminology/constants#charge-item-category) | Yes      |
+| Type | Format                                                  | Required |
+|:-----|:--------------------------------------------------------|:---------|
+| enum | [Charge Item Category](/constants#charge-item-category) | Yes      |
 
 ### `isTouristTax`
 
@@ -95,9 +95,9 @@ These objects are designed to be used across different reports in the NTAK syste
 
 ### `gender`
 
-| Type | Format                                  | Required |
-|:-----|:----------------------------------------|:---------|
-| enum | [Gender](/terminology/constants#gender) | Yes      |
+| Type | Format                      | Required |
+|:-----|:----------------------------|:---------|
+| enum | [Gender](/constants#gender) | Yes      |
 
 ### `guestNumber`
 
@@ -109,9 +109,9 @@ The unique identifier of the guest.
 
 ### `touristTaxStatus`
 
-| Type | Format                                            | Required |
-|:-----|:--------------------------------------------------|:---------|
-| enum | [Tourist Tax](/terminology/constants#tourist-tax) | Yes      |
+| Type | Format                                | Required |
+|:-----|:--------------------------------------|:---------|
+| enum | [Tourist Tax](/constants#tourist-tax) | Yes      |
 
 ### `yearOfBirth`
 
@@ -121,9 +121,13 @@ The unique identifier of the guest.
 
 ### `residenceCountryCode`
 
-| Type   | Format                                                                 | Required |
-|:-------|:-----------------------------------------------------------------------|:---------|
-| string | [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) | Yes      |
+| Type   | Format                                                                            | Required |
+|:-------|:----------------------------------------------------------------------------------|:---------|
+| string | [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) or `other` | Yes      |
+
+<Callout type="info">
+  If the country code does not included in the [official list](/constants#ntak-countries), NTAK.guru will transform it to `other`.
+</Callout>
 
 ### `residencePostCode`
 
@@ -133,9 +137,13 @@ The unique identifier of the guest.
 
 ### `nationalityCountryCode`
 
-| Type   | Format                                                                 | Required |
-|:-------|:-----------------------------------------------------------------------|:---------|
-| string | [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) | Yes      |
+| Type   | Format                                                                            | Required |
+|:-------|:----------------------------------------------------------------------------------|:---------|
+| string | [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) or `other` | Yes      |
+
+<Callout type="info">
+  If the country code does not included in the [official list](/constants#ntak-countries), NTAK.guru will transform it to `other`.
+</Callout>
 
 ```json
 {
@@ -155,9 +163,9 @@ The unique identifier of the guest.
 
 ### `type`
 
-| Type | Format                                                                  | Required |
-|:-----|:------------------------------------------------------------------------|:---------|
-| enum | [Residential Unit Types](/terminology/constants#residential-unit-types) | Yes      |
+| Type | Format                                                      | Required |
+|:-----|:------------------------------------------------------------|:---------|
+| enum | [Residential Unit Types](/constants#residential-unit-types) | Yes      |
 
 ### `building`
 
