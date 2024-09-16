@@ -1,11 +1,19 @@
 import {Callout} from "nextra/components";
 
+# NTAK objects
+
 On this page, you can access the reusable objects for NTAK reports.
 These objects are designed to be used across different reports in the NTAK system, providing consistency and reusability of data structures.
 
 ## Expense
 
 ### `date`
+
+The expenditure is a gross item paid by the guest without VAT, the amount and type of which the NTAK system takes into account. It must be sent to the PMS interface on the date of issue of the invoice.
+
+Multiple spends and multiple debits can be sent for one guest night.
+
+It is possible that a charge appears in the system as a spend on the same day. This is not a problem, it should be sent as a separate item to the PMS interface.
 
 | Type     | Format        | Required |
 |:---------|:--------------|:---------|
@@ -44,6 +52,10 @@ These objects are designed to be used across different reports in the NTAK syste
 ```
 
 ## Load
+
+Gross amount with VAT rate and service category charged to the guest's account for a service. It must be sent to the PMS interface on the day the product or service is recorded.
+
+The value of the accommodation fee and IFA booked for the given day is also considered a charge.
 
 ### `date`
 
